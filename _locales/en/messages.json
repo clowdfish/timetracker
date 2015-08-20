@@ -1,0 +1,26 @@
+{
+	"title": {
+		"message": "SP Time Tracker",
+		"description": "Extension Name."
+	},
+	"options_form_url": {
+		"message": "SharePoint base URL",
+		"description": "Label for the url input."
+	},
+	"options_form_username": {
+		"message": "SharePoint user name",
+		"description": "Label for the user name input."
+	},
+	"options_form_password": {
+		"message": "SharePoint password",
+		"description": "Label for the password input."
+	},
+	"options_form_save": {
+		"message": "Save",
+		"description": "Label for the save button."
+	},
+	"options_saved": {
+		"message": "Options saved.",
+		"description": "Message that is shown, when the options are updated."
+	}
+}

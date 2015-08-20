@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "SharePoint Timetracking Plugin",
+  "description": "This extension connects to a SharePoint server to provide easy time tracking capabilities.",
+  "version": "1.0",
+
+  "default_locale": "en",
+  "icons": {
+    "16": "images/icon_16.png",
+    "48": "images/icon_48.png",
+    "128": "images/icon_128.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "19": "icon_19.png",
+      "38": "icon_38.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "Add new time record"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ],
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SP Time Tracker Options</title>
+  <style>
+    body: { padding: 1em; }
+
+    .options-label {
+      display: block;	
+      margin-bottom: 0.3em;
+    }
+
+    .options-input {
+      border: 1px solid rgb(191, 191, 191);
+	  border-image-source: initial;
+	  border-image-slice: initial;
+	  border-image-width: initial;
+	  border-image-outset: initial;
+	  border-image-repeat: initial;
+	  border-radius: 2px;
+	  box-sizing: border-box;
+	  color: rgb(68, 68, 68);
+	  font: inherit;
+	  margin-bottom:1em !important;
+	  min-height: 2em;
+	  min-width: 18em;
+	  padding: 3px 3px 4px;
+	  outline: none;
+    }
+
+    #status.success {
+      margin: 0.5em 0;
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>SharePoint details</h1>
+  
+  <label for="url" class="options-label" id="url_label"></label>
+  <input type="url" id="url" name="url" placeholder="http://www.your-server.com" class="options-input">
+
+  <label for="username" class="options-label" id="username_label"></label>
+  <input type="string" id="username" name="username" placeholder="John Doe" class="options-input">
+
+  <label for="password" class="options-label" id="password_label"></label>
+  <input type="password" id="password" name="password" class="options-input">
+
+  <div id="status"></div>
+  <button id="save"></button>
+
+  <script src="options.js"></script>
+</body>
+</html>
