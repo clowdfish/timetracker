@@ -2,9 +2,9 @@
 // A permission to "storage" is required.
 function save_options() {
 
-  var url = document.getElementById('url').value;
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
+  var url = document.getElementById('sharepoint_url').value;
+  var username = document.getElementById('sharepoint_username').value;
+  var password = document.getElementById('sharepoint_password').value;
 
   chrome.storage.sync.set({
     url: url,
@@ -33,16 +33,18 @@ function restore_options() {
     username: '',
     password: ''
   }, function(items) {
-    document.getElementById('url').value = items.url;
-    document.getElementById('username').value = items.username;
-    document.getElementById('password').value = items.password;
+    document.getElementById('sharepoint_url').value = items.url;
+    document.getElementById('sharepoint_username').value = items.username;
+    document.getElementById('sharepoint_password').value = items.password;
   });
 }
 
 function addTranslations() {
-  document.getElementById('url_label').innerHTML = chrome.i18n.getMessage("options_form_url");
-  document.getElementById('username_label').innerHTML = chrome.i18n.getMessage("options_form_username");
-  document.getElementById('password_label').innerHTML = chrome.i18n.getMessage("options_form_password");
+  document.getElementById('github_username_label').innerHTML = chrome.i18n.getMessage("options_form_username");
+  document.getElementById('github_password_label').innerHTML = chrome.i18n.getMessage("options_form_password");
+  document.getElementById('sharepoint_url_label').innerHTML = chrome.i18n.getMessage("options_form_sharepoint_url");
+  document.getElementById('sharepoint_username_label').innerHTML = chrome.i18n.getMessage("options_form_username");
+  document.getElementById('sharepoint_password_label').innerHTML = chrome.i18n.getMessage("options_form_password");
   document.getElementById("save").innerHTML = chrome.i18n.getMessage("options_form_save");
 }
 

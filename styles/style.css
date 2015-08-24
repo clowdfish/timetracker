@@ -5,7 +5,8 @@ body {
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   font-size: 100%;
   padding: .5em;
-  min-width: 15em;
+  margin: 0;
+  min-width: 18em;
 }
 
 *:focus {
@@ -37,50 +38,44 @@ input[type=radio]:checked + label {
   color: #fff5ed;
 }
 
-.button, button, input[type="button"], input[type="submit"], .button-primary {
+.button, button, input[type="button"], input[type="submit"] {
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+  background-image: linear-gradient(#ededed, #ededed 38%, #dedede);
+  border: 1px solid rgba(0, 0, 0, 0.24706);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-repeat: initial;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.07843) 0px 1px 0px, rgba(255, 255, 255, 0.74902) 0px 1px 2px inset;
+  color: #444444;
+  font: inherit;
+  margin: 0px 1px 0px 0px;
+  outline: none;
+  text-shadow: #f0f0f0 0px 1px 0px;
+  min-height: 2em;
+  min-width: 4em;
+}
+
+.link {
   /* Reset */
   cursor: pointer;
   outline: 0;
   /* Layout */
   display: inline-block;
   /* Looks */
-  border: 1px solid #ee0000;
+  border: none;
   text-decoration: none;
-  border-radius: 3px;
   padding: .2em .4em;
   line-height: 1.4em;
-  /* behaviour */
-  transition: background 0.2s ease-in-out;
-}
-.is-disabled.button, button.is-disabled, input.is-disabled[type="button"], input.is-disabled[type="submit"], .is-disabled.button-primary {
-  opacity: 0.4;
-}
-.right.button, button.right, input.right[type="button"], input.right[type="submit"], .right.button-primary {
-  float: right;
-}
-.left.button, button.left, input.left[type="button"], input.left[type="submit"], .left.button-primary {
-  float: left;
-}
-
-.button, button, input[type="button"], input[type="submit"] {
-  background: none;
   color: #ee0000;
 }
-.button:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
-  color: #fff5ed;
-  background: #ee0000;
-}
-
-.button-primary {
-  background: #ee0000;
-  color: #fff5ed;
-}
-.button-primary:hover {
-  background: #ff0808;
+.link:hover {
+  text-decoration: underline;
 }
 
 .button-container {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 .button-container:after {
   content: "";
@@ -90,10 +85,23 @@ input[type=radio]:checked + label {
 
 #status {
   /* avoid an excessively wide status text */
+  display: block;
   white-space: pre;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 400px;
+  max-width: 95%;
+}
+#status.success {
+  margin: 0.5em 0;
+  color: green;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
 
 /********************************************/
@@ -102,10 +110,21 @@ input[type=radio]:checked + label {
 .selection .title {
   font-size: 1.2em;
   margin: 0 0 .5em 0;
+  font-weight: bold;
+}
+.selection .container {
+  margin-bottom: 0.8em;
+}
+.selection .container.bottom {
+  margin-bottom: 3em;
 }
 .selection .list {
   width: 100%;
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
+}
+.selection .list option {
+  font-size: 1.3em;
+  padding: 0.3em 0.2em;
 }
 
 /********************************************/
@@ -114,11 +133,20 @@ input[type=radio]:checked + label {
 .recording .title {
   font-size: 1.2em;
   margin: 0 0 .5em 0;
+  font-weight: bold;
 }
 
 /********************************************/
 /* Options page                             */
 /********************************************/
+.options .title {
+  font-size: 1.2em;
+  margin: 0 0 .5em 0;
+  font-weight: bold;
+}
+.options .container {
+  margin-bottom: 0.8em;
+}
 .options .label {
   display: block;
   margin-bottom: 0.3em;
@@ -132,13 +160,12 @@ input[type=radio]:checked + label {
   box-sizing: border-box;
   color: #444444;
   font: inherit;
-  margin-bottom: 1em !important;
+  margin-bottom: 0.8em !important;
   min-height: 2em;
   min-width: 18em;
   padding: 3px 3px 4px;
   outline: none;
 }
-.options #status.success {
-  margin: 0.5em 0;
-  color: green;
+.options .checkbox {
+  line-height: 1em;
 }

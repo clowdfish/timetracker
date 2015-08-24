@@ -1,3 +1,7 @@
+// dimensions
+$popup-width: 18em;
+
+// colors
 $c-primary: #ee0000;
 $c-text: #000;
 $c-text--light: #fff5ed;
@@ -9,7 +13,8 @@ body {
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   font-size: 100%;
   padding: .5em;
-  min-width: 15em;
+  margin: 0;
+  min-width: $popup-width;
 }
 
 *:focus {
@@ -45,59 +50,49 @@ input[type=radio] {
 }
 
 %button {
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+  background-image: linear-gradient(rgb(237, 237, 237), rgb(237, 237, 237) 38%, rgb(222, 222, 222));
+  border: 1px solid rgba(0, 0, 0, 0.247059);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-repeat: initial;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.0784314) 0px 1px 0px, rgba(255, 255, 255, 0.74902) 0px 1px 2px inset;
+  color: rgb(68, 68, 68);
+  font: inherit;
+  margin: 0px 1px 0px 0px;
+  outline: none;
+  text-shadow: rgb(240, 240, 240) 0px 1px 0px;
+  min-height: 2em;
+  min-width: 4em;
+}
+
+.button, button, input[type="button"], input[type="submit"] {
+  @extend %button;
+
+}
+
+.link {
   /* Reset */
   cursor: pointer;
   outline: 0;
   /* Layout */
   display: inline-block;
   /* Looks */
-  border: 1px solid $c-primary;
+  border: none;
   text-decoration: none;
-  border-radius: 3px;
   padding: .2em .4em;
   line-height: 1.4em;
-
-  /* behaviour */
-  transition: background 0.2s ease-in-out;
-
-  &.is-disabled {
-    opacity: 0.4;
-  }
-
-  &.right {
-    float: right;
-  }
-
-  &.left {
-    float: left;
-  }
-}
-
-.button, button, input[type="button"], input[type="submit"] {
-  @extend %button;
-
-  background: none;
   color: $c-primary;
 
   &:hover {
-    color: $c-text--light;
-    background: $c-primary;
-  }
-}
-
-.button-primary {
-  @extend %button;
-
-  background: $c-primary;
-  color: $c-text--light;
-
-  &:hover {
-    background: lighten($c-primary, 5%);
+    text-decoration: underline;
   }
 }
 
 .button-container {
-  margin-top: 2em;
+  margin-top: 1em;
 
   &:after {
     content: "";
@@ -108,10 +103,24 @@ input[type=radio] {
 
 #status {
   /* avoid an excessively wide status text */
+  display: block;
   white-space: pre;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 400px;
+  max-width: 95%;
+
+  &.success {
+    margin: 0.5em 0;
+    color: green;
+  }
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
 
 /********************************************/
@@ -122,12 +131,25 @@ input[type=radio] {
   .title {
     font-size: 1.2em;
     margin: 0 0 .5em 0;
+    font-weight: bold;
+  }
+  
+  .container {
+    margin-bottom: 0.8em;
 
+    &.bottom {
+      margin-bottom: 3em;
+    }
   }
 
   .list {
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: 0.8em;
+
+    option {
+      font-size: 1.3em;
+      padding: 0.3em 0.2em;
+    }
   }
 }
 
@@ -139,7 +161,7 @@ input[type=radio] {
   .title {
     font-size: 1.2em;
     margin: 0 0 .5em 0;
-
+    font-weight: bold;
   }
 }
 
@@ -147,6 +169,16 @@ input[type=radio] {
 /* Options page                             */
 /********************************************/
 %options {
+
+  .title {
+    font-size: 1.2em;
+    margin: 0 0 .5em 0;
+    font-weight: bold;
+  }
+
+  .container {
+    margin-bottom: 0.8em;
+  }
 
   .label {
     display: block;
@@ -162,16 +194,15 @@ input[type=radio] {
     box-sizing: border-box;
     color: rgb(68, 68, 68);
     font: inherit;
-    margin-bottom: 1em !important;
+    margin-bottom: 0.8em !important;
     min-height: 2em;
-    min-width: 18em;
+    min-width: $popup-width;
     padding: 3px 3px 4px;
     outline: none;
   }
 
-  #status.success {
-    margin: 0.5em 0;
-    color: green;
+  .checkbox {
+    line-height: 1em;
   }
 }
 

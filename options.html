@@ -6,19 +6,50 @@
 </head>
 
 <body class="options">
-  <h1>SharePoint details</h1>
-  
-  <label for="url" class="label" id="url_label"></label>
-  <input type="url" id="url" name="url" placeholder="http://www.your-server.com" class="input">
 
-  <label for="username" class="label" id="username_label"></label>
-  <input type="text" id="username" name="username" placeholder="John Doe" class="input">
+  <div class="container">
+    <h1 id="github-title" class="title">Github credentials</h1>
 
-  <label for="password" class="label" id="password_label"></label>
-  <input type="password" id="password" name="password" class="input">
+    <label for="github_username" class="label" id="github_username_label">User name</label>
+    <input type="text" id="github_username" name="github_username" placeholder="John Doe" class="input">
+
+    <label for="github_password" class="label" id="github_password_label">Password</label>
+    <input type="password" id="github_password" name="github_password" placeholder="******" class="input">
+  </div>
+
+  <div class="container">
+    <h1 id="sharepoint-title" class="title">SharePoint credentials</h1>
+
+    <label for="sharepoint_url" class="label" id="sharepoint_url_label">SharePoint URL</label>
+    <input type="url" id="sharepoint_url" name="url" placeholder="http://www.your-server.com" class="input">
+
+    <label for="sharepoint_username" class="label" id="sharepoint_username_label">User name</label>
+    <input type="text" id="sharepoint_username" name="sharepoint_username" placeholder="John Doe" class="input">
+
+    <label for="sharepoint_password" class="label" id="sharepoint_password_label">Password</label>
+    <input type="password" id="sharepoint_password" name="sharepoint_password" placeholder="******" class="input">
+  </div>
+
+  <div class="container">
+    <h1 id="settings-title" class="title">Other settings</h1>
+
+    <div class="checkbox">
+      <input type="checkbox" id="remember_project" />
+      <label for="remember_project">Remember recent project</label>
+    </div>
+
+    <div class="checkbox">
+      <input type="checkbox" id="remember_password" checked />
+      <label for="remember_password">Remember passwords</label>
+    </div>
+  </div>
 
   <div id="status"></div>
-  <button id="save"></button>
+
+  <div class="button-container">
+    <a href="selection.html" class="link left">Back</a>
+    <button class="button right" id="save">Save</button>
+  </div>
 
   <script src="scripts/options.js"></script>
 </body>

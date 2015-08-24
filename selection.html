@@ -1,23 +1,12 @@
-<!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>SP Time Tracker </title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-    <script src="scripts/selection.js"></script>
   </head>
+
   <body class="selection">
-    <div id="selection-project" class="container">
+    <div class="container">
       <h1 id="selection-project-title" class="title">Select project</h1>
       <select name="project" id="selection-project-item" class="list" size="5">
         <option>text1</option>
@@ -28,7 +17,7 @@
       </select>
     </div>
 
-    <div id="selection-requirement" class="container">
+    <div class="container">
       <h1 id="selection-requirement-title" class="title">Select requirement</h1>
       <select name="requirement" id="selection-requirement-item" class="list" size="5">
         <option>text1</option>
@@ -39,7 +28,7 @@
       </select>
     </div>
 
-    <div id="selection-type" class="container">
+    <div class="container bottom">
       <h1 id="selection-type-title" class="title">Select work item type</h1>
       <div id="election-type-list" class="list">
         <input type="radio" id="radio1" name="radio"><label for="radio1">Work Item</label>
@@ -48,9 +37,11 @@
     </div>
 
     <div class="button-container">
-      <a href="options.html" class="button left">Settings</a>
-      <a href="recording.html" class="button-primary right">Record time</a>
+      <a href="options.html" id="button-options" class="link left">Settings</a>
+      <button class="button right" id="record" value="Record time">Record time</button>
     </div>
+
+    <script src="scripts/selection.js"></script>
   </body>
 </html>
 

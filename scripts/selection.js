@@ -92,6 +92,13 @@ function renderStatus(statusText) {
   document.getElementById('status').textContent = statusText;
 }
 
+function addTranslations() {
+  document.getElementById("record").innerHTML = chrome.i18n.getMessage("selection_form_record");
+}
+
+// initialize page
+addTranslations();
+
 document.addEventListener('DOMContentLoaded', function() {
   getCurrentTabUrl(function(url) {
     // Put the image URL in Google search.
