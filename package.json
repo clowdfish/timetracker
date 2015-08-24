@@ -1,0 +1,39 @@
+{
+  "name": "timetracker",
+  "version": "0.1.0",
+  "description": "A time tracking Chrome extension with SharePoint and Github integration.",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-notify": "^1.5.0",
+    "gulp-plumber": "^0.6.5",
+    "gulp-ruby-sass": "^1.0.0",
+    "karma": "0.12.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "0.2.0",
+    "karma-mocha-reporter": "^0.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preview": "echo \"Preview\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clowdfish/timetracker.git"
+  },
+  "keywords": [
+    "Javascript"
+  ],
+  "author": {
+    "name": "Sascha Gros",
+    "email": "gros.sascha@gmail.com",
+    "url": "https://twitter.com/swapzone"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clowdfish/timetracker/issues"
+  },
+  "homepage": "https://github.com/clowdfish/timetracker"
+}

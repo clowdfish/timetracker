@@ -14,16 +14,15 @@
 
   "browser_action": {
     "default_icon": {
-      "19": "icon_19.png",
-      "38": "icon_38.png"
+      "19": "images/icon_19.png",
+      "38": "images/icon_38.png"
     },
-    "default_popup": "popup.html",
+    "default_popup": "selection.html",
     "default_title": "Add new time record"
   },
   "permissions": [
     "storage",
-    "activeTab",
-    "https://ajax.googleapis.com/"
+    "activeTab"
   ],
 
   "options_ui": {

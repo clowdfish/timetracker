@@ -1,0 +1,57 @@
+body {
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  font-size: 100%;
+  padding: .5em;
+}
+
+#status {
+  /* avoid an excessively wide status text */
+  white-space: pre;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 400px;
+}
+
+/********************************************/
+/* Selection page                           */
+/********************************************/
+.selection-title {
+  font-size: 1.2em;
+  margin: 0 0 .5em 0;
+}
+
+.selection-list {
+  width: 100%;
+}
+
+/********************************************/
+/* Recording page                           */
+/********************************************/
+/********************************************/
+/* Options page                             */
+/********************************************/
+.options-label {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
+.options-input {
+  border: 1px solid #bfbfbf;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-repeat: initial;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: #444444;
+  font: inherit;
+  margin-bottom: 1em !important;
+  min-height: 2em;
+  min-width: 18em;
+  padding: 3px 3px 4px;
+  outline: none;
+}
+
+#status.success {
+  margin: 0.5em 0;
+  color: green;
+}
