@@ -1,7 +1,91 @@
+/********************************************/
+/* Global stuff                             */
+/********************************************/
 body {
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   font-size: 100%;
   padding: .5em;
+  min-width: 15em;
+}
+
+*:focus {
+  outline: 0;
+}
+
+input[type=radio] {
+  display: none;
+}
+input[type=radio] + label {
+  cursor: pointer;
+  display: inline-block;
+  width: 48%;
+  padding: 0.3em;
+  box-sizing: border-box;
+  background: #e8e8e8;
+  text-align: center;
+}
+input[type=radio] + label:first-of-type {
+  border-radius: 3px 0 0 3px;
+  margin-right: -2px;
+}
+input[type=radio] + label:last-of-type {
+  border-radius: 0 3px 3px 0;
+  margin-left: -2px;
+}
+input[type=radio]:checked + label {
+  background: #ee0000;
+  color: #fff5ed;
+}
+
+.button, button, input[type="button"], input[type="submit"], .button-primary {
+  /* Reset */
+  cursor: pointer;
+  outline: 0;
+  /* Layout */
+  display: inline-block;
+  /* Looks */
+  border: 1px solid #ee0000;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: .2em .4em;
+  line-height: 1.4em;
+  /* behaviour */
+  transition: background 0.2s ease-in-out;
+}
+.is-disabled.button, button.is-disabled, input.is-disabled[type="button"], input.is-disabled[type="submit"], .is-disabled.button-primary {
+  opacity: 0.4;
+}
+.right.button, button.right, input.right[type="button"], input.right[type="submit"], .right.button-primary {
+  float: right;
+}
+.left.button, button.left, input.left[type="button"], input.left[type="submit"], .left.button-primary {
+  float: left;
+}
+
+.button, button, input[type="button"], input[type="submit"] {
+  background: none;
+  color: #ee0000;
+}
+.button:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+  color: #fff5ed;
+  background: #ee0000;
+}
+
+.button-primary {
+  background: #ee0000;
+  color: #fff5ed;
+}
+.button-primary:hover {
+  background: #ff0808;
+}
+
+.button-container {
+  margin-top: 2em;
+}
+.button-container:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 #status {
@@ -15,27 +99,31 @@ body {
 /********************************************/
 /* Selection page                           */
 /********************************************/
-.selection-title {
+.selection .title {
   font-size: 1.2em;
   margin: 0 0 .5em 0;
 }
-
-.selection-list {
+.selection .list {
   width: 100%;
+  margin-bottom: 1em;
 }
 
 /********************************************/
 /* Recording page                           */
 /********************************************/
+.recording .title {
+  font-size: 1.2em;
+  margin: 0 0 .5em 0;
+}
+
 /********************************************/
 /* Options page                             */
 /********************************************/
-.options-label {
+.options .label {
   display: block;
   margin-bottom: 0.3em;
 }
-
-.options-input {
+.options .input {
   border: 1px solid #bfbfbf;
   border-image-source: initial;
   border-image-slice: initial;
@@ -50,8 +138,7 @@ body {
   padding: 3px 3px 4px;
   outline: none;
 }
-
-#status.success {
+.options #status.success {
   margin: 0.5em 0;
   color: green;
 }

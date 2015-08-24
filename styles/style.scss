@@ -1,43 +1,159 @@
+$c-primary: #ee0000;
+$c-text: #000;
+$c-text--light: #fff5ed;
+
+/********************************************/
+/* Global stuff                             */
+/********************************************/
 body {
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-    font-size: 100%;
-    padding: .5em;
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  font-size: 100%;
+  padding: .5em;
+  min-width: 15em;
+}
+
+*:focus {
+  outline: 0;
+}
+
+input[type=radio] {
+  display: none;
+
+  & + label {
+    cursor: pointer;
+    display: inline-block;
+    width: 48%;
+    padding: 0.3em;
+    box-sizing: border-box;
+    background: #e8e8e8;
+    text-align: center;
+
+    &:first-of-type {
+      border-radius: 3px 0 0 3px;
+      margin-right: -2px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 3px 3px 0;
+      margin-left: -2px;
+    }
+  }
+  &:checked + label {
+    background: $c-primary;
+    color: $c-text--light;
+  }
+}
+
+%button {
+  /* Reset */
+  cursor: pointer;
+  outline: 0;
+  /* Layout */
+  display: inline-block;
+  /* Looks */
+  border: 1px solid $c-primary;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: .2em .4em;
+  line-height: 1.4em;
+
+  /* behaviour */
+  transition: background 0.2s ease-in-out;
+
+  &.is-disabled {
+    opacity: 0.4;
+  }
+
+  &.right {
+    float: right;
+  }
+
+  &.left {
+    float: left;
+  }
+}
+
+.button, button, input[type="button"], input[type="submit"] {
+  @extend %button;
+
+  background: none;
+  color: $c-primary;
+
+  &:hover {
+    color: $c-text--light;
+    background: $c-primary;
+  }
+}
+
+.button-primary {
+  @extend %button;
+
+  background: $c-primary;
+  color: $c-text--light;
+
+  &:hover {
+    background: lighten($c-primary, 5%);
+  }
+}
+
+.button-container {
+  margin-top: 2em;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 #status {
-    /* avoid an excessively wide status text */
-    white-space: pre;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 400px;
+  /* avoid an excessively wide status text */
+  white-space: pre;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 400px;
 }
 
 /********************************************/
 /* Selection page                           */
 /********************************************/
-.selection-title {
-  font-size: 1.2em;
-  margin: 0 0 .5em 0;
+%selection {
 
-}
+  .title {
+    font-size: 1.2em;
+    margin: 0 0 .5em 0;
 
-.selection-list {
- width: 100%;
+  }
+
+  .list {
+    width: 100%;
+    margin-bottom: 1em;
+  }
 }
 
 /********************************************/
 /* Recording page                           */
 /********************************************/
+%recording {
+
+  .title {
+    font-size: 1.2em;
+    margin: 0 0 .5em 0;
+
+  }
+}
 
 /********************************************/
 /* Options page                             */
 /********************************************/
-.options-label {
+%options {
+
+  .label {
     display: block;
     margin-bottom: 0.3em;
-}
+  }
 
-.options-input {
+  .input {
     border: 1px solid rgb(191, 191, 191);
     border-image-source: initial;
     border-image-slice: initial;
@@ -46,14 +162,29 @@ body {
     box-sizing: border-box;
     color: rgb(68, 68, 68);
     font: inherit;
-    margin-bottom:1em !important;
+    margin-bottom: 1em !important;
     min-height: 2em;
     min-width: 18em;
     padding: 3px 3px 4px;
     outline: none;
-}
+  }
 
-#status.success {
+  #status.success {
     margin: 0.5em 0;
     color: green;
+  }
+}
+
+
+
+.selection {
+  @extend %selection;
+}
+
+.recording {
+  @extend %recording;
+}
+
+.options {
+  @extend %options;
 }
