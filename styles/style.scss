@@ -21,6 +21,22 @@ body {
   outline: 0;
 }
 
+.input {
+  border: 1px solid rgb(191, 191, 191);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-repeat: initial;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: rgb(68, 68, 68);
+  font: inherit;
+  margin-bottom: 0.8em !important;
+  min-height: 2em;
+  min-width: $popup-width;
+  padding: 3px 3px 4px;
+  outline: none;
+}
+
 input[type=radio] {
   display: none;
 
@@ -49,6 +65,16 @@ input[type=radio] {
   }
 }
 
+.list {
+  width: 100%;
+  margin-bottom: .8em;
+
+  option {
+    font-size: 1.3em;
+    padding: 0.3em 0.2em;
+  }
+}
+
 %button {
   -webkit-appearance: none;
   -webkit-user-select: none;
@@ -64,8 +90,10 @@ input[type=radio] {
   margin: 0px 1px 0px 0px;
   outline: none;
   text-shadow: rgb(240, 240, 240) 0px 1px 0px;
-  min-height: 2em;
+  text-decoration: none;
+  padding: .5em .4em;
   min-width: 4em;
+  cursor: pointer;
 }
 
 .button, button, input[type="button"], input[type="submit"] {
@@ -141,16 +169,6 @@ input[type=radio] {
       margin-bottom: 3em;
     }
   }
-
-  .list {
-    width: 100%;
-    margin-bottom: 0.8em;
-
-    option {
-      font-size: 1.3em;
-      padding: 0.3em 0.2em;
-    }
-  }
 }
 
 /********************************************/
@@ -162,6 +180,47 @@ input[type=radio] {
     font-size: 1.2em;
     margin: 0 0 .5em 0;
     font-weight: bold;
+  }
+
+  .label--light {
+    color: #999;
+    font-size: 85%;
+    margin-bottom: 0.3em;
+    
+    &.block {
+      display: block;
+    }
+  }
+
+  hr {
+    margin-bottom: 1em;
+  }
+
+  .list {
+    margin-bottom: 1.8em;
+  }
+
+  textarea {
+    width: 98%;
+    font-size: 1em;
+    line-height: 1.3em;
+    margin-bottom: 1.1em;
+  }
+
+  .input {
+    margin-bottom: 0.3em !important;
+  }
+
+  #date {
+    margin-bottom: 0.3em;
+  }
+
+  #date-input {
+    display: none;
+  }
+
+  #date-change-link {
+    font-size: 85%;
   }
 }
 
@@ -183,22 +242,6 @@ input[type=radio] {
   .label {
     display: block;
     margin-bottom: 0.3em;
-  }
-
-  .input {
-    border: 1px solid rgb(191, 191, 191);
-    border-image-source: initial;
-    border-image-slice: initial;
-    border-image-repeat: initial;
-    border-radius: 2px;
-    box-sizing: border-box;
-    color: rgb(68, 68, 68);
-    font: inherit;
-    margin-bottom: 0.8em !important;
-    min-height: 2em;
-    min-width: $popup-width;
-    padding: 3px 3px 4px;
-    outline: none;
   }
 
   .checkbox {

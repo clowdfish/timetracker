@@ -1,24 +1,77 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>SP Time Tracker</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
-
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-    <script src="scripts/recording.js"></script>
   </head>
-  <body>
-    <a href="selection.html">Go back</a>
+  <body class="recording">
+    <!-- project information -->
+    <div>
+      <span class="label--light block">Selected project</span>
+      <span id="selected-project">No project selected</span>
+    </div>
+
+    <hr>
+
+    <!-- issue / category selection -->
+    <div>
+      <!-- github integration -->
+      <div id="github">
+        <h1 id="github-title" class="title">Issue you worked on</h1>
+
+        <select name="issue" id="github-issue-list" class="list" size="5">
+          <option>text1</option>
+          <option>text2</option>
+          <option>text3</option>
+          <option>text4</option>
+          <option>text5</option>
+        </select>
+      </div>
+
+      <!-- work item representation -->
+      <div id="work-item">
+        <h1 id="work-item-title" class="title">Category you worked on</h1>
+
+        <select name="category" id="category-list" class="list" size="5">
+          <option>text1</option>
+          <option>text2</option>
+          <option>text3</option>
+          <option>text4</option>
+          <option>text5</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- work description -->
+    <div>
+      <h1 id="description-title" class="title">What you did</h1>
+
+      <textarea rows="5" placeholder="A short description of your work"></textarea>
+    </div>
+
+    <!-- time information -->
+    <div>
+      <h1 id="time-title" class="title">Time you spent</h1>
+
+      <input type="text" id="time-input" class="input" placeholder="e.g. 2:00" />
+    </div>
+
+    <!-- date selection -->
+    <div>
+      <span id="date" class="label--light">12.04.2017</span>
+      <input type="date" id="date-input" class="input" />
+
+      <a id="date-change-link" class="link" href="#">change date</a>
+    </div>
+
+    <div id="status"></div>
+
+    <div class="button-container">
+      <a href="selection.html" class="link">Go back</a>
+      <button class="button right" id="store">Store time</button>
+    </div>
+
+    <script src="scripts/recording.js"></script>
   </body>
 </html>
 

@@ -13,6 +13,22 @@ body {
   outline: 0;
 }
 
+.input {
+  border: 1px solid #bfbfbf;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-repeat: initial;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: #444444;
+  font: inherit;
+  margin-bottom: 0.8em !important;
+  min-height: 2em;
+  min-width: 18em;
+  padding: 3px 3px 4px;
+  outline: none;
+}
+
 input[type=radio] {
   display: none;
 }
@@ -38,6 +54,15 @@ input[type=radio]:checked + label {
   color: #fff5ed;
 }
 
+.list {
+  width: 100%;
+  margin-bottom: .8em;
+}
+.list option {
+  font-size: 1.3em;
+  padding: 0.3em 0.2em;
+}
+
 .button, button, input[type="button"], input[type="submit"] {
   -webkit-appearance: none;
   -webkit-user-select: none;
@@ -53,8 +78,10 @@ input[type=radio]:checked + label {
   margin: 0px 1px 0px 0px;
   outline: none;
   text-shadow: #f0f0f0 0px 1px 0px;
-  min-height: 2em;
+  text-decoration: none;
+  padding: .5em .4em;
   min-width: 4em;
+  cursor: pointer;
 }
 
 .link {
@@ -118,14 +145,6 @@ input[type=radio]:checked + label {
 .selection .container.bottom {
   margin-bottom: 3em;
 }
-.selection .list {
-  width: 100%;
-  margin-bottom: 0.8em;
-}
-.selection .list option {
-  font-size: 1.3em;
-  padding: 0.3em 0.2em;
-}
 
 /********************************************/
 /* Recording page                           */
@@ -134,6 +153,38 @@ input[type=radio]:checked + label {
   font-size: 1.2em;
   margin: 0 0 .5em 0;
   font-weight: bold;
+}
+.recording .label--light {
+  color: #999;
+  font-size: 85%;
+  margin-bottom: 0.3em;
+}
+.recording .label--light.block {
+  display: block;
+}
+.recording hr {
+  margin-bottom: 1em;
+}
+.recording .list {
+  margin-bottom: 1.8em;
+}
+.recording textarea {
+  width: 98%;
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-bottom: 1.1em;
+}
+.recording .input {
+  margin-bottom: 0.3em !important;
+}
+.recording #date {
+  margin-bottom: 0.3em;
+}
+.recording #date-input {
+  display: none;
+}
+.recording #date-change-link {
+  font-size: 85%;
 }
 
 /********************************************/
@@ -150,21 +201,6 @@ input[type=radio]:checked + label {
 .options .label {
   display: block;
   margin-bottom: 0.3em;
-}
-.options .input {
-  border: 1px solid #bfbfbf;
-  border-image-source: initial;
-  border-image-slice: initial;
-  border-image-repeat: initial;
-  border-radius: 2px;
-  box-sizing: border-box;
-  color: #444444;
-  font: inherit;
-  margin-bottom: 0.8em !important;
-  min-height: 2em;
-  min-width: 18em;
-  padding: 3px 3px 4px;
-  outline: none;
 }
 .options .checkbox {
   line-height: 1em;
