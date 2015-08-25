@@ -169,6 +169,12 @@ input[type=radio]:checked + label {
 .recording hr {
   margin-bottom: 1em;
 }
+.recording #work-item {
+  display: none;
+}
+.recording #github {
+  display: none;
+}
 .recording .list {
   margin-bottom: 1.8em;
 }

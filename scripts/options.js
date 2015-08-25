@@ -1,18 +1,36 @@
-// Saves options to chrome.storage.sync.
-// A permission to "storage" is required.
-function save_options() {
+/**
+ * Saves options to chrome.storage.sync.
+ * A permission to "storage" is required.
+ */
+function saveOptions() {
 
-  var url = document.getElementById('sharepoint_url').value;
-  var username = document.getElementById('sharepoint_username').value;
-  var password = document.getElementById('sharepoint_password').value;
+  var sharepointUrl = document.getElementById('sharepoint_url').value;
+  var sharepointUsername = document.getElementById('sharepoint_username').value;
+  var sharepointPassword = '';
+
+  var githubUsername = document.getElementById('github_username').value;
+  var githubPassword = '';
+
+  var rememberProject = document.getElementById('remember_project').checked;
+  var rememberPassword = document.getElementById('remember_password').checked;
+
+  if(rememberPassword) {
+    sharepointPassword = document.getElementById('sharepoint_password').value;
+    githubPassword = document.getElementById('github_password').value;
+  }
 
   chrome.storage.sync.set({
-    url: url,
-    username: username,
-    password: password
+    sharepointUrl: sharepointUrl,
+    sharepointUsername: sharepointUsername,
+    sharepointPassword: sharepointPassword,
+    githubUsername: githubUsername,
+    githubPassword: githubPassword,
+    rememberProject: rememberProject,
+    rememberPassword: rememberPassword
   }, function() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
+
     status.textContent = chrome.i18n.getMessage("options_saved");
     status.className = "success";
 
@@ -23,19 +41,32 @@ function save_options() {
   });
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
-function restore_options() {
+/**
+ *
+ */
+function restoreOptions() {
 
-  // Use default value url = '' and 'username' = ''.
   chrome.storage.sync.get({
-    url: '',
-    username: '',
-    password: ''
+    sharepointUrl: '',
+    sharepointUsername: '',
+    sharepointPassword: '',
+    githubUsername: '',
+    githubPassword: '',
+    rememberPassword: false,
+    rememberProject: false
   }, function(items) {
-    document.getElementById('sharepoint_url').value = items.url;
-    document.getElementById('sharepoint_username').value = items.username;
-    document.getElementById('sharepoint_password').value = items.password;
+
+    if(items.rememberPassword) {
+      document.getElementById('sharepoint_password').value = items.sharepointPassword;
+      document.getElementById('github_password').value = items.githubPassword;
+    }
+
+    document.getElementById('sharepoint_url').value = items.sharepointUrl;
+    document.getElementById('sharepoint_username').value = items.sharepointUsername;
+    document.getElementById('github_username').value = items.githubUsername;
+
+    document.getElementById('remember_project').checked = items.rememberProject;
+    document.getElementById('remember_password').checked = items.rememberPassword;
   });
 }
 
@@ -50,6 +81,5 @@ function addTranslations() {
 
 // initialize page
 addTranslations();
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click',
-    save_options);
+document.addEventListener('DOMContentLoaded', restoreOptions);
+document.getElementById('save').addEventListener('click', saveOptions);

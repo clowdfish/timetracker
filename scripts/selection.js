@@ -3,24 +3,61 @@
  */
 function processEntries() {
 
-  var project = document.getElementById('project-item').value;
-  var requirement = document.getElementById('requirement-item').value;
-  var type = document.getElementById('item').checked;
+  var projectElement = document.getElementById('project-item');
 
-  if (project == '' || requirement == '') {
+  var projectId = projectElement.value;
+  var projectTitle = projectElement.options[ projectElement.selectedIndex ].text;
+
+  var requirementElement = document.getElementById('requirement-item');
+
+  var requirementId = requirementElement.value;
+  var requirementTitle = requirementElement.options[ requirementElement.selectedIndex ].text;
+
+  var typeElement = document.getElementById('item').checked;
+  var type = typeElement ? 'item' : 'github';
+
+  if (!projectTitle || !requirementTitle) {
     renderStatus('Select a project and requirement.', 'error');
     return;
   }
 
-  var itemType = type ? 'item' : 'github';
-
   chrome.storage.sync.set({
-    project: project,
-    requirement: requirement,
-    type: itemType
+    projectId: projectId,
+    projectTitle: projectTitle,
+    requirementId: requirementId,
+    requirementTitle: requirementTitle,
+    type: type
   }, function () {
+
     renderStatus('', 'success');
     window.location.href = '../recording.html';
+  });
+}
+
+/**
+ *
+ *
+ */
+function restoreSelection() {
+
+
+  chrome.storage.sync.get({
+    projectId: '',
+    requirementId: '',
+    type: '',
+    rememberProject: false
+  }, function(items) {
+
+    if(items.rememberProject) {
+      if (items.projectId)
+        document.getElementById('project-item').value = items.projectId;
+
+      if (items.requirementId)
+        document.getElementById('requirement-item').value = items.requirementId;
+
+      document.getElementById('item').checked = items.type == 'item';
+      document.getElementById('issue').checked = items.type == 'github';
+    }
   });
 }
 
@@ -96,6 +133,7 @@ addTranslations();
 
 document.addEventListener('DOMContentLoaded', function() {
 
+  restoreSelection();
   // do something after the popup loaded
 
 });
