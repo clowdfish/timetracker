@@ -122,6 +122,10 @@ input[type=radio]:checked + label {
   margin: 0.5em 0;
   color: green;
 }
+#status.error {
+  margin: 0.5em 0;
+  color: red;
+}
 
 .right {
   float: right;

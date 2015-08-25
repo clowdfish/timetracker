@@ -141,6 +141,11 @@ input[type=radio] {
     margin: 0.5em 0;
     color: green;
   }
+
+  &.error {
+    margin: 0.5em 0;
+    color: red;
+  }
 }
 
 .right {

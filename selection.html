@@ -8,7 +8,7 @@
   <body class="selection">
     <div class="container">
       <h1 id="selection-project-title" class="title">Select project</h1>
-      <select name="project" id="selection-project-item" class="list" size="5">
+      <select name="project" id="project-item" class="list" size="5">
         <option>text1</option>
         <option>text2</option>
         <option>text3</option>
@@ -19,7 +19,7 @@
 
     <div class="container">
       <h1 id="selection-requirement-title" class="title">Select requirement</h1>
-      <select name="requirement" id="selection-requirement-item" class="list" size="5">
+      <select name="requirement" id="requirement-item" class="list" size="5">
         <option>text1</option>
         <option>text2</option>
         <option>text3</option>
@@ -29,16 +29,18 @@
     </div>
 
     <div class="container bottom">
-      <h1 id="selection-type-title" class="title">Select work item type</h1>
-      <div id="election-type-list" class="list">
-        <input type="radio" id="radio1" name="radio"><label for="radio1">Work Item</label>
-        <input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">Github Issue</label>
+      <h1 id="type-title" class="title">Select work item type</h1>
+      <div id="type-list" class="list">
+        <input type="radio" id="item" name="type"><label for="item">Work Item</label>
+        <input type="radio" id="issue" name="type" checked="checked"><label for="issue">Github Issue</label>
       </div>
     </div>
 
+    <div id="status"></div>
+
     <div class="button-container">
       <a href="options.html" id="button-options" class="link left">Settings</a>
-      <a href="recording.html" class="button right" id="record">Record time</a>
+      <button class="button right" id="record">Record time</button>
     </div>
 
     <script src="scripts/selection.js"></script>
