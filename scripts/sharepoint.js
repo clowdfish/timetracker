@@ -113,7 +113,7 @@ SharePointConnector.prototype = {
         "Accept": "application/json; odata=verbose"
       },
       success: function(result) {
-        callback(_this.formatRequirement(result));
+        callback(_this.formatRequirement(result, projectId));
       },
       error: function(err) {
         console.error("An error occurred: " + err);
@@ -126,18 +126,21 @@ SharePointConnector.prototype = {
    *
    *
    * @param results
+   * @param projectId
    * @returns {*}
    */
-  formatRequirement: function(results) {
+  formatRequirement: function(results, projectId) {
 
-    return results['d']['results'].map(function(result) {
-
+    return results['d']['results'].map(function(item) {
       return {
-        'Id': result['Id'],
-        'Title': result['Title'],
-        'Description': result['Description'],
-        'Date': result['Date']
+        'Id': item['Id'],
+        'Title': item['Title'],
+        'Description': item['Body'],
+        'ProjectId': item['ProjectId'],
+        'Date': item['Date']
       };
+    }).filter(function(requirement) {
+      return projectId && requirement['ProjectId'] == projectId;
     });
   },
 

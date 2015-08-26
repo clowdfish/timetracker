@@ -40,7 +40,6 @@ function processEntries() {
  */
 function restoreSelection() {
 
-
   chrome.storage.sync.get({
     projectId: '',
     requirementId: '',
@@ -51,11 +50,15 @@ function restoreSelection() {
     loadProjects(function() {
 
       if(items.rememberProject) {
-        if (items.projectId)
+
+        if (items.projectId) {
           document.getElementById('project-item').value = items.projectId;
 
-        if (items.requirementId)
-          document.getElementById('requirement-item').value = items.requirementId;
+          loadRequirements(items.projectId, function() {
+            if (items.requirementId)
+              document.getElementById('requirement-item').value = items.requirementId;
+          });
+        }
 
         document.getElementById('item').checked = items.type == 'item';
         document.getElementById('issue').checked = items.type == 'github';
@@ -81,19 +84,18 @@ function loadProjects(callback) {
       console.error('Cannot connect to SharePoint, connection data missing.');
     }
 
-    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, 'Projekte', 'Requirements')
+    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, 'Projekte', 'Projektaufgaben')
       .getProjects(function (resultList) {
 
           var projectsList = document.getElementById('project-item');
 
-          if (!resultList || resultList.length == 0) {
-            var option = document.createElement('option');
-            option.text = "No project available.";
-            option.value = -1;
+          if (resultList && resultList.length) {
 
-            projectsList.appendChild(option);
-          }
-          else {
+            // delete all existing nodes first
+            while (projectsList.firstChild) {
+              projectsList.removeChild(projectsList.firstChild);
+            }
+
             resultList.forEach(function (result) {
 
               var option = document.createElement('option');
@@ -106,6 +108,52 @@ function loadProjects(callback) {
 
           callback()
         }
+    );
+  });
+}
+
+/**
+ *
+ *
+ * @param projectId
+ * @param callback
+ */
+function loadRequirements(projectId, callback) {
+
+  chrome.storage.sync.get({
+    sharepointUrl: '',
+    sharepointUsername: '',
+    sharepointPassword: ''
+  }, function(items) {
+
+    if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
+      console.error('Cannot connect to SharePoint, connection data missing.');
+    }
+
+    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, 'Projekte', 'Projektaufgaben')
+      .getRequirements(projectId, function (resultList) {
+
+        var requirementsList = document.getElementById('requirement-item');
+
+        // delete all existing nodes first
+        while (requirementsList.firstChild) {
+          requirementsList.removeChild(requirementsList.firstChild);
+        }
+
+        if (resultList && resultList.length) {
+
+          resultList.forEach(function (result) {
+
+            var option = document.createElement('option');
+            option.text = result['Title'];
+            option.value = result['Id'];
+
+            requirementsList.appendChild(option);
+          });
+        }
+
+        callback()
+      }
     );
   });
 }
@@ -144,6 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
   addTranslations();
   restoreSelection();
 
+  document.getElementById('project-item').addEventListener('change',  function(event) {
+    loadRequirements(event.target.value, function() {});
+  });
+  document.getElementById('record').addEventListener('click',  processEntries);
 });
-
-document.getElementById('record').addEventListener('click',  processEntries);
