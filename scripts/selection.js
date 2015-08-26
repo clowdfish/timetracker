@@ -48,16 +48,65 @@ function restoreSelection() {
     rememberProject: false
   }, function(items) {
 
-    if(items.rememberProject) {
-      if (items.projectId)
-        document.getElementById('project-item').value = items.projectId;
+    loadProjects(function() {
 
-      if (items.requirementId)
-        document.getElementById('requirement-item').value = items.requirementId;
+      if(items.rememberProject) {
+        if (items.projectId)
+          document.getElementById('project-item').value = items.projectId;
 
-      document.getElementById('item').checked = items.type == 'item';
-      document.getElementById('issue').checked = items.type == 'github';
+        if (items.requirementId)
+          document.getElementById('requirement-item').value = items.requirementId;
+
+        document.getElementById('item').checked = items.type == 'item';
+        document.getElementById('issue').checked = items.type == 'github';
+      }
+    });
+  });
+}
+
+/**
+ *
+ *
+ * @param callback
+ */
+function loadProjects(callback) {
+
+  chrome.storage.sync.get({
+    sharepointUrl: '',
+    sharepointUsername: '',
+    sharepointPassword: ''
+  }, function(items) {
+
+    if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
+      console.error('Cannot connect to SharePoint, connection data missing.');
     }
+
+    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, 'Projekte', 'Requirements')
+      .getProjects(function (resultList) {
+
+          var projectsList = document.getElementById('project-item');
+
+          if (!resultList || resultList.length == 0) {
+            var option = document.createElement('option');
+            option.text = "No project available.";
+            option.value = -1;
+
+            projectsList.appendChild(option);
+          }
+          else {
+            resultList.forEach(function (result) {
+
+              var option = document.createElement('option');
+              option.text = result['Title'];
+              option.value = result['Id'];
+
+              projectsList.appendChild(option);
+            });
+          }
+
+          callback()
+        }
+    );
   });
 }
 
@@ -85,56 +134,15 @@ function renderStatus(statusText, type) {
   }
 }
 
-/**
- * @param {function(string,number,number)} callback - Called when an image has
- *   been found. The callback gets the URL, width and height of the image.
- * @param {function(string)} errorCallback - Called when the image is not found.
- *   The callback gets a string that describes the failure reason.
- */
-function getProjects(callback, errorCallback) {
-
-  // TODO get SharePoint url from storage
-  var searchUrl = "";
-
-  var x = new XMLHttpRequest();
-
-  x.open('GET', searchUrl);
-
-  // SharePoint responds with JSON, so let Chrome parse it.
-  x.responseType = 'json';
-
-  x.onload = function() {
-    var response = x.response;
-
-    if (!response || !response.responseData || !response.responseData.results ||
-        response.responseData.results.length === 0) {
-      errorCallback('No response from SharePoint!');
-      return;
-    }
-
-    // TODO do something with the response and then return it in the callback
-
-    callback();
-  };
-
-  x.onerror = function() {
-    errorCallback('Network error.');
-  };
-
-  x.send();
-}
-
 function addTranslations() {
   document.getElementById("record").innerHTML = chrome.i18n.getMessage("selection_form_record");
 }
 
 // initialize page
-addTranslations();
-
 document.addEventListener('DOMContentLoaded', function() {
 
+  addTranslations();
   restoreSelection();
-  // do something after the popup loaded
 
 });
 

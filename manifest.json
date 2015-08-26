@@ -22,7 +22,9 @@
   },
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "http://demo.efexcon.com/",
+    "http://github.com"
   ],
 
   "options_ui": {
