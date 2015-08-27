@@ -1,224 +1,225 @@
-
 /**
  *
  *
+ * @constructor
  */
-function editDate() {
-
-  var dateDisplayElement = document.getElementById('date');
-  var dateChangeElement = document.getElementById('date-change');
-  var dateInputElement = document.getElementById('date-input');
-  var dateInputButton = document.getElementById('date-input-button');
-
-  dateDisplayElement.style.display = "none";
-  dateChangeElement.style.display = "none";
-
-  dateInputElement.value = dateDisplayElement.textContent;
-  dateInputElement.style.display = "inline-block";
-  dateInputButton.style.display = "inline-block";
-
-  dateInputButton.addEventListener('click', function() {
-    dateDisplayElement.textContent = dateInputElement.value;
-
-    dateInputElement.style.display = "none";
-    dateInputButton.style.display = "none";
-
-    dateDisplayElement.style.display = "inline";
-    dateChangeElement.style.display = "inline-block";
-  });
+function Recording() {
+  this.helper = new Helper();
 }
 
-/**
- * Create a date string according to German standards.
- *
- * @param date
- * @returns {string}
- */
-function createDateString(date) {
+Recording.prototype = {
 
-  var day = date.getDate();
-  var month = date.getMonth() + 1;
-  var year = date.getFullYear();
+  constructor: Recording,
 
-  return '' + day + '.' + month + '.' + year;
-}
+  /**
+   *
+   *
+   */
+  editDate: function() {
 
-/**
- *
- *
- */
-function addTimeRecord() {
+    var dateDisplayElement = document.getElementById('date');
+    var dateChangeElement = document.getElementById('date-change');
+    var dateInputElement = document.getElementById('date-input');
+    var dateInputButton = document.getElementById('date-input-button');
 
-  // check if input is valid
-  if(!checkInput()) return;
+    dateDisplayElement.style.display = "none";
+    dateChangeElement.style.display = "none";
 
-  // TODO start spinner
+    dateInputElement.value = dateDisplayElement.textContent;
+    dateInputElement.style.display = "inline-block";
+    dateInputButton.style.display = "inline-block";
 
-  chrome.storage.sync.get({
-    sharepointUrl: '',
-    sharepointUsername: '',
-    sharepointPassword: ''
-  }, function(items) {
+    dateInputButton.addEventListener('click', function() {
+      dateDisplayElement.textContent = dateInputElement.value;
 
-    if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
-      console.error('Cannot connect to SharePoint, connection data missing.');
-    }
+      dateInputElement.style.display = "none";
+      dateInputButton.style.display = "none";
 
-    var sharePointConnector =
-      new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config);
+      dateDisplayElement.style.display = "inline";
+      dateChangeElement.style.display = "inline-block";
+    });
+  },
 
-    var list = document.getElementById("category-list");
-    var category = list.options[list.selectedIndex].value;
+  /**
+   * Create a date string according to German standards.
+   *
+   * @param date
+   * @returns {string}
+   */
+  createDateString: function(date) {
 
-    // TODO implement alternative for Github
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
 
-    var timeArray = document.getElementById('time-input').value.split(':');
-    var time = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+    return '' + day + '.' + month + '.' + year;
+  },
 
-    var record = {
-      duration: time,
-      date: document.getElementById('date').value,
-      description: document.getElementById('description').value,
-      summary: '',
-      category: category,
-      requirementId: document.getElementById('selected-requirement').textContent
-    };
+  /**
+   *
+   *
+   */
+  addTimeRecord: function() {
 
-    sharePointConnector.addTimeRecord(record, function (error) {
+    var _this = this;
 
-      if (error) {
-        console.error('Could not add time record: ' + error.message);
+    // check if input is valid
+    if(!_this.checkInput()) return;
 
-        // TODO stop spinner
+    _this.helper.showWaitingAnimation();
 
-        renderStatus('Could not add time record', 'error');
+    chrome.storage.sync.get({
+      sharepointUrl: '',
+      sharepointUsername: '',
+      sharepointPassword: ''
+    }, function(items) {
+
+      if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
+        console.error('Cannot connect to SharePoint, connection data missing.');
       }
 
-      // TODO stop spinner
+      var sharePointConnector =
+        new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config);
 
-      renderStatus('Time record added!', 'success', true);
+      var list = document.getElementById("category-list");
+      var category = list.options[list.selectedIndex].value;
+
+      // TODO implement alternative for Github
+
+      var timeArray = document.getElementById('time-input').value.split(':');
+      var time = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+
+      var record = {
+        duration: time,
+        date: document.getElementById('date').value,
+        description: document.getElementById('description').value,
+        summary: '',
+        category: category,
+        requirementId: document.getElementById('selected-requirement').textContent
+      };
+
+      sharePointConnector.addTimeRecord(record, function (error) {
+
+        if (error) {
+          console.error('Could not add time record: ' + error.message);
+
+          _this.helper.hideWaitingAnimation();
+          _this.helper.renderStatus('Could not add time record', 'error');
+        }
+
+        _this.helper.hideWaitingAnimation();
+        _this.helper.renderStatus('Time record added!', 'success', true);
+      });
     });
-  });
-}
+  },
 
-/**
- *
- *
- * @returns {boolean}
- */
-function checkInput() {
+  /**
+   *
+   *
+   * @returns {boolean}
+   */
+  checkInput: function() {
 
-  if(document.getElementById("category-list").selectedIndex == -1) {
-    renderStatus('Select category first!', 'error');
-    return false;
-  }
+    var _this = this;
 
-  renderStatus('');
-  return true;
-}
-
-/**
- * Render status to the popup.
- *
- * @param statusText
- * @param type
- * @param hide
- */
-function renderStatus(statusText, type, hide) {
-  var status = document.getElementById('status');
-
-  status.textContent = statusText;
-
-  switch(type) {
-    case 'error':
-      status.className = "error";
-      break;
-    case 'warning':
-      status.className = "warn";
-      break;
-    case 'success':
-      status.className = "success";
-      break;
-    default:
-      status.className = "";
-      break;
-  }
-
-  if(hide)
-    setTimeout(function() {
-      status.textContent = '';
-      status.className = '';
-    }, 2000);
-}
-
-// initialize page
-document.addEventListener('DOMContentLoaded', function() {
-
-  document.getElementById('date').textContent = createDateString(new Date());
-
-  document.getElementById('date-change').addEventListener('click', editDate);
-  document.getElementById('store').addEventListener('click', addTimeRecord);
-
-  chrome.storage.sync.get({
-    projectId: '',
-    projectTitle: '',
-    requirementId: '',
-    type: '',
-    sharepointUrl: '',
-    sharepointUsername: '',
-    sharepointPassword: '',
-    githubUsername: '',
-    githubPassword: ''
-  }, function(items) {
-    document.getElementById('selected-project').textContent = items.projectTitle;
-    document.getElementById('selected-requirement').textContent = items.requirementId;
-
-    if(items.type == 'item') {
-      document.getElementById('work-item').style.display = "block";
-      document.getElementById('github').style.display = "none";
-
-      new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
-        .getCategories(function (resultList) {
-
-          var categoryList = document.getElementById('category-list');
-
-          if (resultList && resultList.length) {
-
-            resultList.forEach(function (result) {
-
-              var option = document.createElement('option');
-              option.text = result;
-
-              categoryList.appendChild(option);
-            });
-          }
-        });
+    if(document.getElementById("category-list").selectedIndex == -1) {
+      _this.helper.renderStatus('Select category first!', 'error');
+      return false;
     }
-    else {
-      document.getElementById('work-item').style.display =  "none";
-      document.getElementById('github').style.display =  "block";
 
-      new GithubConnector(items.githubUsername, items.githubPassword, Config.githubOrganization)
-        .getIssues(items.projectId, items.requirementId, function(error, resultList) {
+    _this.helper.renderStatus('');
+    return true;
+  },
 
-          if(error)
-            renderStatus('Could not retrieve issues from Github.', 'error');
-          else {
-            var issueList = document.getElementById('github-issue-list');
+  /**
+   *
+   *
+   */
+  prepareView: function() {
+
+    var _this = this;
+
+    _this.helper.showWaitingAnimation();
+
+    document.getElementById('date').textContent = _this.createDateString(new Date());
+
+    chrome.storage.sync.get({
+      projectId: '',
+      projectTitle: '',
+      requirementId: '',
+      type: '',
+      sharepointUrl: '',
+      sharepointUsername: '',
+      sharepointPassword: '',
+      githubUsername: '',
+      githubPassword: ''
+    }, function(items) {
+
+      document.getElementById('selected-project').textContent = items.projectTitle;
+      document.getElementById('selected-requirement').textContent = items.requirementId;
+
+      if(items.type == 'item') {
+        document.getElementById('work-item').style.display = "block";
+        document.getElementById('github').style.display = "none";
+
+        new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
+          .getCategories(function (resultList) {
+
+            var categoryList = document.getElementById('category-list');
 
             if (resultList && resultList.length) {
 
               resultList.forEach(function (result) {
 
                 var option = document.createElement('option');
-                option.text = result['title'];
+                option.text = result;
 
-                issueList.appendChild(option);
+                categoryList.appendChild(option);
               });
             }
-          }
-        });
-    }
-  });
+
+            _this.helper.hideWaitingAnimation();
+          });
+      }
+      else {
+        document.getElementById('work-item').style.display =  "none";
+        document.getElementById('github').style.display =  "block";
+
+        new GithubConnector(items.githubUsername, items.githubPassword, Config.githubOrganization)
+          .getIssues(items.projectId, items.requirementId, function(error, resultList) {
+
+            if(error)
+              _this.helper.renderStatus('Could not retrieve issues from Github.', 'error');
+            else {
+              var issueList = document.getElementById('github-issue-list');
+
+              if (resultList && resultList.length) {
+
+                resultList.forEach(function (result) {
+
+                  var option = document.createElement('option');
+                  option.text = result['title'];
+
+                  issueList.appendChild(option);
+                });
+              }
+
+              _this.helper.hideWaitingAnimation();
+            }
+          });
+      }
+    });
+  }
+};
+
+// initialize page
+document.addEventListener('DOMContentLoaded', function() {
+
+  var recording = new Recording();
+
+  recording.prepareView();
+
+  document.getElementById('date-change').addEventListener('click', recording.editDate.bind(recording));
+  document.getElementById('store').addEventListener('click', recording.addTimeRecord.bind(recording));
 });
 

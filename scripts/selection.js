@@ -1,91 +1,107 @@
 /**
  *
+ *
+ * @constructor
  */
-function processEntries() {
-
-  var projectElement = document.getElementById('project-item');
-
-  var projectId = projectElement.value;
-  var projectTitle = projectElement.options[ projectElement.selectedIndex ].text;
-
-  var requirementElement = document.getElementById('requirement-item');
-
-  var requirementId = requirementElement.value;
-  var requirementTitle = requirementElement.options[ requirementElement.selectedIndex ].text;
-
-  var typeElement = document.getElementById('item').checked;
-  var type = typeElement ? 'item' : 'github';
-
-  if (!projectTitle || !requirementTitle) {
-    renderStatus('Select a project and requirement.', 'error');
-    return;
-  }
-
-  chrome.storage.sync.set({
-    projectId: projectId,
-    projectTitle: projectTitle,
-    requirementId: requirementId,
-    requirementTitle: requirementTitle,
-    type: type
-  }, function () {
-
-    renderStatus('', 'success');
-    window.location.href = '../recording.html';
-  });
+function Selection() {
+  this.helper = new Helper();
 }
 
-/**
- *
- *
- */
-function restoreSelection() {
+Selection.prototype = {
 
-  chrome.storage.sync.get({
-    projectId: '',
-    requirementId: '',
-    type: '',
-    rememberProject: false
-  }, function(items) {
+  constructor: Selection,
 
-    loadProjects(function() {
+  /**
+   *
+   */
+  processEntries: function() {
 
-      if(items.rememberProject) {
+    var _this = this;
 
-        if (items.projectId) {
-          document.getElementById('project-item').value = items.projectId;
+    var projectElement = document.getElementById('project-item');
 
-          loadRequirements(items.projectId, function() {
-            if (items.requirementId)
-              document.getElementById('requirement-item').value = items.requirementId;
-          });
-        }
+    var projectId = projectElement.value;
+    var projectTitle = projectElement.options[ projectElement.selectedIndex ].text;
 
-        document.getElementById('item').checked = items.type == 'item';
-        document.getElementById('issue').checked = items.type == 'github';
-      }
-    });
-  });
-}
+    var requirementElement = document.getElementById('requirement-item');
 
-/**
- *
- *
- * @param callback
- */
-function loadProjects(callback) {
+    var requirementId = requirementElement.value;
+    var requirementTitle = requirementElement.options[ requirementElement.selectedIndex ].text;
 
-  chrome.storage.sync.get({
-    sharepointUrl: '',
-    sharepointUsername: '',
-    sharepointPassword: ''
-  }, function(items) {
+    var typeElement = document.getElementById('item').checked;
+    var type = typeElement ? 'item' : 'github';
 
-    if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
-      console.error('Cannot connect to SharePoint, connection data missing.');
+    if (!projectTitle || !requirementTitle) {
+      _this.helper.renderStatus('Select a project and requirement.', 'error');
+      return;
     }
 
-    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
-      .getProjects(function (resultList) {
+    chrome.storage.sync.set({
+      projectId: projectId,
+      projectTitle: projectTitle,
+      requirementId: requirementId,
+      requirementTitle: requirementTitle,
+      type: type
+    }, function () {
+
+      _this.helper.renderStatus('', '', false);
+      window.location.href = '../recording.html';
+    });
+  },
+
+  /**
+   *
+   */
+  restoreSelection: function() {
+
+    var _this = this;
+
+    chrome.storage.sync.get({
+      projectId: '',
+      requirementId: '',
+      type: '',
+      rememberProject: false
+    }, function(items) {
+
+      _this.loadProjects(function() {
+
+        if(items.rememberProject) {
+
+          if (items.projectId) {
+            document.getElementById('project-item').value = items.projectId;
+
+            _this.loadRequirements(items.projectId, function() {
+              if (items.requirementId)
+                document.getElementById('requirement-item').value = items.requirementId;
+            });
+          }
+
+          document.getElementById('item').checked = items.type == 'item';
+          document.getElementById('issue').checked = items.type == 'github';
+        }
+      });
+    });
+  },
+
+  /**
+   *
+   *
+   * @param callback
+   */
+  loadProjects: function(callback) {
+
+    chrome.storage.sync.get({
+      sharepointUrl: '',
+      sharepointUsername: '',
+      sharepointPassword: ''
+    }, function(items) {
+
+      if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
+        console.error('Cannot connect to SharePoint, connection data missing.');
+      }
+
+      new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
+        .getProjects(function (resultList) {
 
           var projectsList = document.getElementById('project-item');
 
@@ -108,102 +124,81 @@ function loadProjects(callback) {
 
           callback()
         }
-    );
-  });
-}
+      );
+    });
+  },
 
-/**
- *
- *
- * @param projectId
- * @param callback
- */
-function loadRequirements(projectId, callback) {
+  /**
+   *
+   *
+   * @param projectId
+   * @param callback
+   */
+  loadRequirements: function(projectId, callback) {
 
-  chrome.storage.sync.get({
-    sharepointUrl: '',
-    sharepointUsername: '',
-    sharepointPassword: ''
-  }, function(items) {
+    var _this = this;
 
-    if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
-      console.error('Cannot connect to SharePoint, connection data missing.');
-    }
+    _this.helper.showWaitingAnimation();
 
-    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
-      .getRequirements(projectId, function (resultList) {
+    chrome.storage.sync.get({
+      sharepointUrl: '',
+      sharepointUsername: '',
+      sharepointPassword: ''
+    }, function(items) {
 
-        var requirementsList = document.getElementById('requirement-item');
-
-        // delete all existing nodes first
-        while (requirementsList.firstChild) {
-          requirementsList.removeChild(requirementsList.firstChild);
-        }
-
-        if (resultList && resultList.length) {
-
-          resultList.forEach(function (result) {
-
-            var option = document.createElement('option');
-            option.text = result['Title'];
-            option.value = result['Id'];
-
-            requirementsList.appendChild(option);
-          });
-        }
-
-        callback()
+      if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
+        console.error('Cannot connect to SharePoint, connection data missing.');
       }
-    );
-  });
-}
 
-/**
- * Render status to the popup.
- *
- * @param statusText
- * @param type
- * @param hide
- */
-function renderStatus(statusText, type, hide) {
-  var status = document.getElementById('status');
+      new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
+        .getRequirements(projectId, function (resultList) {
 
-  status.textContent = statusText;
+          var requirementsList = document.getElementById('requirement-item');
 
-  switch(type) {
-    case 'error':
-      status.className = "error";
-      break;
-    case 'warning':
-      status.className = "warn";
-      break;
-    case 'success':
-      status.className = "success";
-      break;
-    default:
-      status.className = "";
-      break;
+          // delete all existing nodes first
+          while (requirementsList.firstChild) {
+            requirementsList.removeChild(requirementsList.firstChild);
+          }
+
+          if (resultList && resultList.length) {
+
+            resultList.forEach(function (result) {
+
+              var option = document.createElement('option');
+              option.text = result['Title'];
+              option.value = result['Id'];
+
+              requirementsList.appendChild(option);
+            });
+          }
+
+          _this.helper.hideWaitingAnimation();
+
+          callback()
+        }
+      );
+    });
+  },
+
+  /**
+   *
+   */
+  addTranslations: function() {
+    document.getElementById("record").innerHTML = chrome.i18n.getMessage("selection_form_record");
   }
-
-  if(hide)
-    setTimeout(function() {
-      status.textContent = '';
-      status.className = '';
-    }, 2000);
-}
-
-function addTranslations() {
-  document.getElementById("record").innerHTML = chrome.i18n.getMessage("selection_form_record");
-}
+};
 
 // initialize page
 document.addEventListener('DOMContentLoaded', function() {
 
-  addTranslations();
-  restoreSelection();
+  var selection = new Selection();
+
+  selection.addTranslations();
+  selection.restoreSelection();
 
   document.getElementById('project-item').addEventListener('change',  function(event) {
-    loadRequirements(event.target.value, function() {});
+    selection.loadRequirements(event.target.value, function() {});
   });
-  document.getElementById('record').addEventListener('click',  processEntries);
+
+  document.getElementById('record').addEventListener('click',  selection.processEntries.bind(selection));
 });
