@@ -71,20 +71,24 @@ Recording.prototype = {
     chrome.storage.sync.get({
       sharepointUrl: '',
       sharepointUsername: '',
-      sharepointPassword: ''
+      sharepointPassword: '',
+      type: ''
     }, function(items) {
 
       if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
-        console.error('Cannot connect to SharePoint, connection data missing.');
+        _this.helper.hideWaitingAnimation();
+        _this.helper.renderStatus('Cannot connect to SharePoint, connection data missing.', 'error');
+        return;
       }
 
-      var sharePointConnector =
-        new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config);
+      var list;
 
-      var list = document.getElementById("category-list");
+      if(items.type == 'item')
+        list = document.getElementById("category-list");
+      else
+        list = document.getElementById("github-issue-list");
+
       var category = list.options[list.selectedIndex].value;
-
-      // TODO implement alternative for Github
 
       var timeArray = document.getElementById('time-input').value.split(':');
       var time = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
@@ -98,7 +102,8 @@ Recording.prototype = {
         requirementId: document.getElementById('selected-requirement').textContent
       };
 
-      sharePointConnector.addTimeRecord(record, function (error) {
+      new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
+        .addTimeRecord(record, function (error) {
 
         if (error) {
           console.error('Could not add time record: ' + error.message);
