@@ -84,7 +84,7 @@ function loadProjects(callback) {
       console.error('Cannot connect to SharePoint, connection data missing.');
     }
 
-    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, 'Projekte', 'Projektaufgaben')
+    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
       .getProjects(function (resultList) {
 
           var projectsList = document.getElementById('project-item');
@@ -130,7 +130,7 @@ function loadRequirements(projectId, callback) {
       console.error('Cannot connect to SharePoint, connection data missing.');
     }
 
-    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, 'Projekte', 'Projektaufgaben')
+    new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
       .getRequirements(projectId, function (resultList) {
 
         var requirementsList = document.getElementById('requirement-item');
@@ -163,8 +163,9 @@ function loadRequirements(projectId, callback) {
  *
  * @param statusText
  * @param type
+ * @param hide
  */
-function renderStatus(statusText, type) {
+function renderStatus(statusText, type, hide) {
   var status = document.getElementById('status');
 
   status.textContent = statusText;
@@ -174,12 +175,21 @@ function renderStatus(statusText, type) {
       status.className = "error";
       break;
     case 'warning':
-      status.className = "error";
+      status.className = "warn";
+      break;
+    case 'success':
+      status.className = "success";
       break;
     default:
       status.className = "";
       break;
   }
+
+  if(hide)
+    setTimeout(function() {
+      status.textContent = '';
+      status.className = '';
+    }, 2000);
 }
 
 function addTranslations() {

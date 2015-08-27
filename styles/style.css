@@ -126,6 +126,10 @@ input[type=radio]:checked + label {
   margin: 0.5em 0;
   color: red;
 }
+#status.warn {
+  margin: 0.5em 0;
+  color: #ffd62f;
+}
 
 .right {
   float: right;
@@ -166,6 +170,9 @@ input[type=radio]:checked + label {
 .recording .label--light.block {
   display: block;
 }
+.recording #selected-requirement {
+  display: none;
+}
 .recording hr {
   margin-bottom: 1em;
 }
@@ -191,6 +198,11 @@ input[type=radio]:checked + label {
   margin-bottom: 0.3em;
 }
 .recording #date-input {
+  display: none;
+  width: 50%;
+  min-width: 50%;
+}
+.recording #date-input-button {
   display: none;
 }
 .recording #date-change-link {

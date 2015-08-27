@@ -146,6 +146,11 @@ input[type=radio] {
     margin: 0.5em 0;
     color: red;
   }
+
+  &.warn {
+    margin: 0.5em 0;
+    color: #ffd62f;
+  }
 }
 
 .right {
@@ -197,6 +202,10 @@ input[type=radio] {
     }
   }
 
+  #selected-requirement {
+    display: none;
+  }
+
   hr {
     margin-bottom: 1em;
   }
@@ -229,6 +238,12 @@ input[type=radio] {
   }
 
   #date-input {
+    display: none;
+    width: 50%;
+    min-width: 50%;
+  }
+
+  #date-input-button {
     display: none;
   }
 
