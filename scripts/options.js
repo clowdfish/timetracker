@@ -76,7 +76,7 @@ function addTranslations() {
   document.getElementById('sharepoint_url_label').innerHTML = chrome.i18n.getMessage("options_form_sharepoint_url");
   document.getElementById('sharepoint_username_label').innerHTML = chrome.i18n.getMessage("options_form_username");
   document.getElementById('sharepoint_password_label').innerHTML = chrome.i18n.getMessage("options_form_password");
-  document.getElementById("save").innerHTML = chrome.i18n.getMessage("options_form_save");
+  document.getElementById('save').innerHTML = chrome.i18n.getMessage("form_save");
 }
 
 // initialize page

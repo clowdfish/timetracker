@@ -1,7 +1,29 @@
 {
+	"form_back": {
+		"message": "Back",
+		"description": "Label for the back button."
+	},
+	"form_save": {
+		"message": "Save",
+		"description": "Label for the save button."
+	},
 	"title": {
 		"message": "SP Time Tracker",
 		"description": "Extension Name."
+	},
+
+
+	"options_github_title": {
+		"message": "Github credentials",
+		"description": "Title for the Github section."
+	},
+	"options_sharepoint_title": {
+		"message": "SharePoint credentials",
+		"description": "Title for the SharePoint section."
+	},
+	"options_other_title": {
+		"message": "Other settings",
+		"description": "Title for the other settings section."
 	},
 	"options_form_sharepoint_url": {
 		"message": "SharePoint URL",
@@ -19,14 +41,20 @@
 		"message": "Access token",
 		"description": "Label for the access token input."
 	},
-	"options_form_save": {
-		"message": "Save",
-		"description": "Label for the save button."
+	"options_form_password_remember": {
+		"message": "Remember recent project",
+		"description": "Remember project label."
+	},
+	"options_form_project_remember": {
+		"message": "Remember passwords",
+		"description": "Remember password label."
 	},
 	"options_saved": {
 		"message": "Options saved.",
 		"description": "Message that is shown, when the options are updated."
 	},
+
+
 	"selection_form_record": {
 		"message": "Record time",
 		"description": "Label for the record time button."
