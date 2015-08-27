@@ -160,9 +160,15 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('store').addEventListener('click', addTimeRecord);
 
   chrome.storage.sync.get({
+    projectId: '',
     projectTitle: '',
     requirementId: '',
-    type: ''
+    type: '',
+    sharepointUrl: '',
+    sharepointUsername: '',
+    sharepointPassword: '',
+    githubUsername: '',
+    githubPassword: ''
   }, function(items) {
     document.getElementById('selected-project').textContent = items.projectTitle;
     document.getElementById('selected-requirement').textContent = items.requirementId;
@@ -192,7 +198,26 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('work-item').style.display =  "none";
       document.getElementById('github').style.display =  "block";
 
-      // TODO retrieve Github items
+      new GithubConnector(items.githubUsername, items.githubPassword, Config.githubOrganization)
+        .getIssues(items.projectId, items.requirementId, function(error, resultList) {
+
+          if(error)
+            renderStatus('Could not retrieve issues from Github.', 'error');
+          else {
+            var issueList = document.getElementById('github-issue-list');
+
+            if (resultList && resultList.length) {
+
+              resultList.forEach(function (result) {
+
+                var option = document.createElement('option');
+                option.text = result['title'];
+
+                issueList.appendChild(option);
+              });
+            }
+          }
+        });
     }
   });
 });

@@ -15,6 +15,10 @@
 		"message": "Password",
 		"description": "Label for the password input."
 	},
+	"options_form_token": {
+		"message": "Access token",
+		"description": "Label for the access token input."
+	},
 	"options_form_save": {
 		"message": "Save",
 		"description": "Label for the save button."
