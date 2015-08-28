@@ -28,10 +28,13 @@ GithubConnector.prototype = {
 
     var _this = this;
 
-    _this.getRepos(projectId, function(repo) {
+    _this.getRepos(projectId, function(error, repo) {
 
-      if(!repo || repo.length == 0)
-        callback(Error('No repository available.'), null);
+      if(error)
+        console.error(error);
+
+      if(error || !repo || repo.length == 0)
+        callback(Error(chrome.i18n.getMessage("status_github_repo")), null);
 
       var url = 'https://api.github.com/repos/' + _this.organization + '/' +
         repo[0]['name'] + '/issues';
@@ -48,8 +51,7 @@ GithubConnector.prototype = {
         success: function(result) {
 
           if(!result || result.length == 0) {
-            console.warn('No issues available at all.');
-            callback(Error('No issues available.'), null);
+            callback(Error(chrome.i18n.getMessage("status_github_issue")), null);
           }
 
           var issuesForRequirementId = _this.formatIssues(result, requirementId);
@@ -60,7 +62,7 @@ GithubConnector.prototype = {
           callback(null, issuesForRequirementId);
         },
         error: function(err) {
-          console.error("An error occurred: " + err);
+          console.error("An error occurred: " + err.message);
           callback(err, null);
         }
       });
@@ -119,23 +121,21 @@ GithubConnector.prototype = {
       success: function(result) {
 
         if(!result || result.length == 0) {
-          console.warn('No repositories available at all.');
-          callback(null);
+          callback(Error(chrome.i18n.getMessage("status_github_repo")), null);
         }
 
         var reposForProjectId = _this.formatRepos(result, projectId);
 
         if(reposForProjectId.length == 0)
-          console.warn('No repo available for the current project id.');
+          callback(Error(chrome.i18n.getMessage("status_github_repo")), null);
 
         if(reposForProjectId.length > 1)
           console.warn('More than one repo available for the current project id.');
 
-        callback(reposForProjectId);
+        callback(null, reposForProjectId);
       },
       error: function(err) {
-        console.error("An error occurred: " + err);
-        callback(null);
+        callback(err, null);
       }
     });
   },

@@ -43,7 +43,7 @@ Options.prototype = {
       rememberProject: rememberProject,
       rememberPassword: rememberPassword
     }, function() {
-      _this.helper.renderStatus(chrome.i18n.getMessage("options-saved"), 'success', true);
+      _this.helper.renderStatus(chrome.i18n.getMessage("status_options_saved"), 'success', true);
     });
   },
 

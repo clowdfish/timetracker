@@ -1,4 +1,8 @@
-
+/**
+ * The helper class.
+ *
+ * @constructor
+ */
 function Helper() {
 
 }
@@ -8,7 +12,7 @@ Helper.prototype = {
   constructor: Helper,
 
   /**
-   *
+   * Blend in waiting animation.
    */
   showWaitingAnimation: function() {
 
@@ -17,7 +21,7 @@ Helper.prototype = {
   },
 
   /**
-   *
+   * Blend out waiting animation.
    */
   hideWaitingAnimation: function() {
 

@@ -32,7 +32,7 @@ Selection.prototype = {
     var type = typeElement ? 'item' : 'github';
 
     if (!projectTitle || !requirementTitle) {
-      _this.helper.renderStatus('Select a project and requirement.', 'error');
+      _this.helper.renderStatus(chrome.i18n.getMessage("status_selection_incomplete"), 'error');
       return;
     }
 
@@ -90,6 +90,8 @@ Selection.prototype = {
    */
   loadProjects: function(callback) {
 
+    var _this = this;
+
     chrome.storage.sync.get({
       sharepointUrl: '',
       sharepointUsername: '',
@@ -97,7 +99,7 @@ Selection.prototype = {
     }, function(items) {
 
       if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
-        console.error('Cannot connect to SharePoint, connection data missing.');
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_missing"), 'error');
       }
 
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
@@ -147,7 +149,7 @@ Selection.prototype = {
     }, function(items) {
 
       if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
-        console.error('Cannot connect to SharePoint, connection data missing.');
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_missing"), 'error');
       }
 
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)

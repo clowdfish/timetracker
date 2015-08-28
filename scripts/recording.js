@@ -17,6 +17,8 @@ Recording.prototype = {
    */
   editDate: function() {
 
+    var _this = this;
+
     var dateDisplayElement = document.getElementById('date');
     var dateChangeElement = document.getElementById('date-change');
     var dateInputElement = document.getElementById('date-input');
@@ -30,6 +32,15 @@ Recording.prototype = {
     dateInputButton.style.display = "inline-block";
 
     dateInputButton.addEventListener('click', function() {
+
+      var date = dateInputElement.value;
+      var dateRegEx = /\d{1,2}.\d{1,2}.\d{4}/;
+
+      if(!dateRegEx.test(date)) {
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_format_date"), 'error');
+        return;
+      }
+
       dateDisplayElement.textContent = dateInputElement.value;
 
       dateInputElement.style.display = "none";
@@ -77,7 +88,7 @@ Recording.prototype = {
 
       if (!items.sharepointUrl || !items.sharepointUsername || !items.sharepointPassword) {
         _this.helper.hideWaitingAnimation();
-        _this.helper.renderStatus('Cannot connect to SharePoint, connection data missing.', 'error');
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_missing"), 'error');
         return;
       }
 
@@ -92,6 +103,8 @@ Recording.prototype = {
 
       var timeArray = document.getElementById('time-input').value.split(':');
       var time = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+
+      // TODO format date value
 
       var record = {
         duration: time,
@@ -109,11 +122,11 @@ Recording.prototype = {
           console.error('Could not add time record: ' + error.message);
 
           _this.helper.hideWaitingAnimation();
-          _this.helper.renderStatus('Could not add time record', 'error');
+          _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add_error"), 'error');
         }
 
         _this.helper.hideWaitingAnimation();
-        _this.helper.renderStatus('Time record added!', 'success', true);
+          _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add"), 'success', true);
       });
     });
   },
@@ -127,12 +140,44 @@ Recording.prototype = {
 
     var _this = this;
 
+    /* test for category/issue selection */
+
+    var categorySelected = true;
     if(document.getElementById("category-list").selectedIndex == -1) {
-      _this.helper.renderStatus('Select category first!', 'error');
+      categorySelected = false;
+    }
+
+    var issueSelected = true;
+    if(document.getElementById("github-issue-list").selectedIndex == -1) {
+      issueSelected = false;
+    }
+
+    if(!categorySelected && !issueSelected) {
+
+      if(!issueSelected)
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_record_issue"), 'error');
+      else
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_record_category"), 'error');
+
       return false;
     }
 
-    // TODO
+    /* test for empty description */
+
+    if(document.getElementById("description").value == '') {
+      _this.helper.renderStatus(chrome.i18n.getMessage("status_record_description"), 'error');
+      return false;
+    }
+
+    /* test time format */
+
+    var time = document.getElementById("time-input").value;
+    var timeRegEx = /\d{1,2}:\d{2}/;
+
+    if(!timeRegEx.test(time)) {
+      _this.helper.renderStatus(chrome.i18n.getMessage("status_format_time"), 'error');
+      return false;
+    }
 
     _this.helper.renderStatus('');
     return true;
@@ -195,14 +240,13 @@ Recording.prototype = {
           .getIssues(items.projectId, items.requirementId, function(error, resultList) {
 
             if(error)
-              _this.helper.renderStatus('Could not retrieve issues from Github.', 'error');
+              _this.helper.renderStatus(chrome.i18n.getMessage("status_github_error"), 'error');
             else {
               var issueList = document.getElementById('github-issue-list');
 
               if (resultList && resultList.length) {
 
                 resultList.forEach(function (result) {
-
                   var option = document.createElement('option');
                   option.text = result['title'];
 
@@ -242,10 +286,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var recording = new Recording();
 
-  recording.prepareView();
   recording.addTranslations();
+  recording.prepareView();
 
   document.getElementById('date-change').addEventListener('click', recording.editDate.bind(recording));
-  document.getElementById('store').addEventListener('click', recording.addTimeRecord.bind(recording));
+  document.getElementById('save').addEventListener('click', recording.addTimeRecord.bind(recording));
 });
-

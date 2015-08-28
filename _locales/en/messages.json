@@ -17,6 +17,60 @@
 	},
 
 
+  "status_options_saved": {
+    "message": "Options saved.",
+    "description": "Message that is shown, when the options are updated."
+  },
+  "status_selection_incomplete": {
+    "message": "Select a project and requirement.",
+    "description": "Message that is shown, if no project and requirement is selected."
+  },
+  "status_sharepoint_missing": {
+    "message": "Cannot connect to SharePoint, connection data missing.",
+    "description": "Message that is shown, when auth data is missing."
+  },
+  "status_format_date": {
+    "message": "Please use the proper date format!",
+    "description": "Message that is shown for a wrong date format."
+  },
+  "status_format_time": {
+    "message": "Please use the proper time format!",
+    "description": "Message that is shown for a wrong time format."
+  },
+  "status_record_description": {
+    "message": "Add a short description at least!",
+    "description": "Message that is shown for a missing description."
+  },
+  "status_record_issue": {
+    "message": "Select issue first!",
+    "description": "Message that is shown if no issue was selected."
+  },
+  "status_record_category": {
+    "message": "Select category first!",
+    "description": "Message that is shown if no category was selected."
+  },
+  "status_sharepoint_add": {
+    "message": "Time record added!",
+    "description": "Message that is shown, when time record was added."
+  },
+  "status_sharepoint_add_error": {
+    "message": "Could not add time record.",
+    "description": "Message that is shown, when time record could not be added."
+  },
+  "status_github_error": {
+    "message": "Could not retrieve issues from Github.",
+    "description": "Message that is shown, when there was an error while connecting to Github."
+  },
+  "status_github_repo": {
+    "message": "No repository available.",
+    "description": "Message that is shown, when no repository was retrieved from Github."
+  },
+  "status_github_issue": {
+    "message": "No issues available.",
+    "description": "Message that is shown, when no issue was retrieved from Github."
+  },
+
+
 	"options_title": {
 		"message": "SP Time Tracker Options",
 		"description": "Title for the options section."
@@ -56,10 +110,6 @@
 	"options_form_project_remember": {
 		"message": "Remember passwords",
 		"description": "Remember password label."
-	},
-	"options_saved": {
-		"message": "Options saved.",
-		"description": "Message that is shown, when the options are updated."
 	},
 
 

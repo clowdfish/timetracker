@@ -45,7 +45,7 @@ SharePointConnector.prototype = {
         callback(_this.formatProjects(result));
       },
       error: function(err) {
-        console.error("An error occurred: " + err);
+        console.error("An error occurred: " + err.message);
         callback([]);
       }
     });
@@ -95,7 +95,7 @@ SharePointConnector.prototype = {
         callback(_this.formatRequirement(result, projectId));
       },
       error: function(err) {
-        console.error("An error occurred: " + err);
+        console.error("An error occurred: " + err.message);
         callback([]);
       }
     });
@@ -179,7 +179,8 @@ SharePointConnector.prototype = {
             addListItem(fullName);
           },
           error: function(err) {
-            console.error("An error occurred: " + err);
+            console.error("An error occurred: " + err.message);
+            callback(err);
           }
         });
       }
@@ -196,7 +197,7 @@ SharePointConnector.prototype = {
 
         if(error) {
           console.error(error.message);
-          return;
+          callback(error);
         }
 
         var fullUrl = _this.prepareApiUrl(_this.url) + 'web/lists/GetByTitle(\'' + _this.timeRecordsListName + '\')/items';
@@ -229,7 +230,7 @@ SharePointConnector.prototype = {
             callback(null);
           },
           error: function(err) {
-            callback(Error('Could not add time Record: ' + err));
+            callback(err);
           }
         });
       });
@@ -303,7 +304,8 @@ SharePointConnector.prototype = {
             callback(null, digestToken);
           },
           error: function (err) {
-            callback(Error('Could not get form digest token: ' + err), null);
+            console.error('Could not get form digest token: ' + err.message);
+            callback(err, null);
           }
         });
       }
