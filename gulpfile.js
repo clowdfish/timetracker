@@ -1,6 +1,5 @@
 // include gulp
 var gulp = require('gulp');
-var karma = require('karma').server;
 
 // include core modules
 var path  = require("path");
@@ -8,7 +7,6 @@ var path  = require("path");
 // include gulp plug-ins
 var sass 		    = require('gulp-ruby-sass'),
     notify		  = require('gulp-notify');
-
 
 /****************************************************************************************************/
 /* SETTING UP DEVELOPMENT ENVIRONMENT                                                               */
@@ -53,4 +51,5 @@ gulp.task('live', ['styles'], function() {
 gulp.task('build', ['styles'], function() {
 
   // TODO
+
 });

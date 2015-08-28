@@ -52,7 +52,7 @@ body {
   min-width: $popup-width;
   padding: 0.5em;
   outline: none;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 input[type=radio] {
@@ -265,13 +265,14 @@ input[type=radio] {
 
   textarea {
     width: 98%;
-    font-size: 1em;
+    font-size: 0.9em;
     line-height: 1.3em;
     margin-bottom: 1.1em;
   }
 
   .input {
     margin-bottom: 0.3em !important;
+    width: 100%;
   }
 
   #date {
