@@ -1,0 +1,186 @@
+{
+	"form_back": {
+		"message": "Zurück",
+		"description": "Label for the back button."
+	},
+  "form_save": {
+    "message": "Speichern",
+    "description": "Label for the save button."
+  },
+  "form_options": {
+    "message": "Einstellungen",
+    "description": "Label for the options button."
+  },
+	"title": {
+		"message": "SP Time Tracker",
+		"description": "Extension Name."
+	},
+
+
+  "status_options_saved": {
+    "message": "Einstellungen gespeichert.",
+    "description": "Message that is shown, when the options are updated."
+  },
+  "status_selection_incomplete": {
+    "message": "Wähle ein Projekt und Requirement.",
+    "description": "Message that is shown, if no project and requirement is selected."
+  },
+  "status_sharepoint_missing": {
+    "message": "Keine Verbindung zu SharePoint möglich. Zugangsdaten fehlen.",
+    "description": "Message that is shown, when auth data is missing."
+  },
+  "status_format_date": {
+    "message": "Bitte Datumsformat beachten!",
+    "description": "Message that is shown for a wrong date format."
+  },
+  "status_format_time": {
+    "message": "Bitte Zeitformat beachten!",
+    "description": "Message that is shown for a wrong time format."
+  },
+  "status_record_description": {
+    "message": "Wenigstens eine kurze Beschreibung!",
+    "description": "Message that is shown for a missing description."
+  },
+  "status_record_issue": {
+    "message": "Wähle ein Issue!",
+    "description": "Message that is shown if no issue was selected."
+  },
+  "status_record_category": {
+    "message": "Wähle eine Kategorie!",
+    "description": "Message that is shown if no category was selected."
+  },
+  "status_sharepoint_add": {
+    "message": "Zeiteintrag erstellt!",
+    "description": "Message that is shown, when time record was added."
+  },
+  "status_sharepoint_add_error": {
+    "message": "Konnte den Zeiteintrag nicht erstellen.",
+    "description": "Message that is shown, when time record could not be added."
+  },
+  "status_github_error": {
+    "message": "Konnte keine Issues von Github empfangen.",
+    "description": "Message that is shown, when there was an error while connecting to Github."
+  },
+  "status_github_repo": {
+    "message": "Keine Repository verfügbar.",
+    "description": "Message that is shown, when no repository was retrieved from Github."
+  },
+  "status_github_issue": {
+    "message": "Keine Issues verfügbar.",
+    "description": "Message that is shown, when no issue was retrieved from Github."
+  },
+
+
+	"options_title": {
+		"message": "SP Time Tracker Optionen",
+		"description": "Title for the options section."
+	},
+	"options_github_title": {
+		"message": "Github Zugangsdaten",
+		"description": "Title for the Github section."
+	},
+	"options_sharepoint_title": {
+		"message": "SharePoint Zugangsdaten",
+		"description": "Title for the SharePoint section."
+	},
+	"options_other_title": {
+		"message": "Andere Einstellungen",
+		"description": "Title for the other settings section."
+	},
+	"options_form_sharepoint_url": {
+		"message": "SharePoint URL",
+		"description": "Label for the url input."
+	},
+	"options_form_username": {
+		"message": "Nutzername",
+		"description": "Label for the user name input."
+	},
+	"options_form_password": {
+		"message": "Passwort",
+		"description": "Label for the password input."
+	},
+	"options_form_token": {
+		"message": "Zugriffstoken",
+		"description": "Label for the access token input."
+	},
+	"options_form_password_remember": {
+		"message": "Das letzte Projekt merken",
+		"description": "Remember project label."
+	},
+	"options_form_project_remember": {
+		"message": "Passwörter merken",
+		"description": "Remember password label."
+	},
+
+
+	"selection_project_label": {
+		"message": "Wähle eine Projekt",
+		"description": "Label for the project selection."
+	},
+  "selection_project_empty": {
+    "message": "Keine Projekte verfügbar",
+    "description": "Label for empty projects list."
+  },
+  "selection_requirement_label": {
+    "message": "Wähle Requirement",
+    "description": "Label for the requirement selection."
+  },
+  "selection_type_label": {
+    "message": "Wäjle den Typ des Eintrags",
+    "description": "Label for the type selection."
+  },
+  "selection_type_issue": {
+    "message": "Github Issue",
+    "description": "Label for Github issue."
+  },
+  "selection_type_item": {
+    "message": "Allgemein",
+    "description": "Label for work item."
+  },
+  "selection_form_record": {
+    "message": "Zeiterfassung",
+    "description": "Label for the record time button."
+  },
+
+
+  "recording_project_label": {
+    "message": "Gewähltes Projekt",
+    "description": "Label for the project selection."
+  },
+  "recording_project_empty": {
+    "message": "Kein Projekt gewählt",
+    "description": "Label for an empty project selection."
+  },
+  "recording_issue_label": {
+    "message": "Wähle ein Issue",
+    "description": "Label for the issue selection."
+  },
+  "recording_category_label": {
+    "message": "Wähle eine Kategorie",
+    "description": "Label for the category selection."
+  },
+  "recording_description_label": {
+    "message": "Was wurde getan",
+    "description": "Label for the description section."
+  },
+  "recording_description_placeholder": {
+    "message": "Eine kurze Beschreibung deiner Arbeit",
+    "description": "The description placeholder."
+  },
+  "recording_time_label": {
+    "message": "Zeitaufwand",
+    "description": "Label for the time section."
+  },
+  "recording_time_placeholder": {
+    "message": "z.B. 2:00",
+    "description": "The time placeholder."
+  },
+  "recording_date_change": {
+    "message": "anderes Datum",
+    "description": "Label for the change date link."
+  },
+  "recording_save": {
+    "message": "Zeit eintragen",
+    "description": "The store time button."
+  }
+}
