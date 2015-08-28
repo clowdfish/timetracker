@@ -181,6 +181,79 @@ Selection.prototype = {
   },
 
   /**
+   *
+   */
+  handleRequirementQuery: function() {
+
+    var _this = this;
+
+    var queryButton = document.getElementById("requirement-query-button");
+    var queryContainer = document.getElementById("requirement-query");
+    var queryInput = document.getElementById("requirement-query-input");
+    var queryCloseButton = document.getElementById("requirement-query-close-button");
+    var requirementsList = document.getElementById('requirement-item');
+
+    queryButton.style.display = 'none';
+    queryContainer.style.display = 'block';
+
+    queryInput.focus();
+
+    var optionArray = [];
+
+    for(var i=0; i<requirementsList.length; i++) {
+      optionArray.push({
+        text: requirementsList[i].text,
+        value: requirementsList[i].value
+      });
+    }
+
+    queryCloseButton.addEventListener('click', function() {
+        queryButton.style.display = 'inline-block';
+        queryContainer.style.display = 'none';
+      });
+
+    queryInput.addEventListener('keyup', function() {
+      var queryString = this.value;
+
+      optionArray.forEach(function(option, index) {
+
+        if (option.text.indexOf(queryString) == -1) {
+          var elementIndex = _this.getElementIndex(requirementsList, option.value);
+
+          if (elementIndex > -1)
+            requirementsList.removeChild(requirementsList[elementIndex]);
+        }
+        else {
+          if(_this.getElementIndex(requirementsList, option.value) == -1) {
+
+            var child = document.createElement('option');
+            child.text = option.text;
+            child.value = option.value;
+
+            requirementsList.add(child, index)
+          }
+        }
+      });
+    });
+  },
+
+  /**
+   * Returns the element index or -1 if the given value is not available in the
+   * given select element.
+   *
+   * @param selectElement
+   * @param value
+   * @returns {number}
+   */
+  getElementIndex: function(selectElement, value) {
+
+    for(var i=0; i<selectElement.length; i++) {
+      if(selectElement[i].value == value) return i;
+    }
+    return -1;
+  },
+
+  /**
    * Add translations to the selection page.
    */
   addTranslations: function() {
@@ -209,4 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById('record').addEventListener('click',  selection.processEntries.bind(selection));
+
+  document.getElementById('requirement-query-button').addEventListener('click',
+    selection.handleRequirementQuery.bind(selection));
 });

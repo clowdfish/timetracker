@@ -41,8 +41,9 @@ body {
   margin-bottom: 0.8em !important;
   min-height: 2em;
   min-width: 18em;
-  padding: 3px 3px 4px;
+  padding: 0.5em;
   outline: none;
+  font-size: 0.8em;
 }
 
 input[type=radio] {
@@ -168,6 +169,25 @@ input[type=radio]:checked + label {
 }
 .selection .container.bottom {
   margin-bottom: 3em;
+}
+.selection #requirement-query {
+  display: none;
+}
+.selection #requirement-query-button {
+  float: right;
+  margin-top: 0.16em;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+.selection #requirement-query-input {
+  width: 90%;
+  min-width: 90%;
+}
+.selection #requirement-query-close-button {
+  float: right;
+  margin-right: 0.5em;
+  margin-top: 0.4em;
+  cursor: pointer;
 }
 
 /********************************************/
