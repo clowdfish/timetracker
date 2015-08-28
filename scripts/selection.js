@@ -181,7 +181,7 @@ Selection.prototype = {
   },
 
   /**
-   *
+   * Open the requirement query and add event listeners and handlers.
    */
   handleRequirementQuery: function() {
 

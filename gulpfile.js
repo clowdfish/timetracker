@@ -43,15 +43,14 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('styles'));
 });
 
-gulp.task('test', function (done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, done);
-});
-
 // gulp task suite
 gulp.task('live', ['styles'], function() {
 
   gulp.watch('styles/**/*.scss', ['styles']);
+});
+
+// gulp task suite
+gulp.task('build', ['styles'], function() {
+
+  // TODO
 });

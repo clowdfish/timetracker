@@ -8,11 +8,7 @@
     "gulp": "^3.8.7",
     "gulp-notify": "^1.5.0",
     "gulp-plumber": "^0.6.5",
-    "gulp-ruby-sass": "^1.0.0",
-    "karma": "0.12.0",
-    "karma-chrome-launcher": "^0.1.7",
-    "karma-jasmine": "0.2.0",
-    "karma-mocha-reporter": "^0.3.1"
+    "gulp-ruby-sass": "^1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
