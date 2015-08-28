@@ -5,8 +5,9 @@ var Config = {
   timeRecordsListName: 'Zeiterfassung',
   githubOrganization: 'clowdfish',
   categories: [
-    'Development',
-    'Documentation',
-    'Something else'
+    'Dokumentation',
+    'Entwicklung',
+    'Kundenbetreuung',
+    'Verwaltung'
   ]
 };
