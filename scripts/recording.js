@@ -104,11 +104,22 @@ Recording.prototype = {
       var timeArray = document.getElementById('time-input').value.split(':');
       var time = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
 
-      // TODO format date value
+      /* format date value: YYYY-MM-DD */
+      var dateArray = document.getElementById('date').innerText.split('.');
+
+      if(dateArray.length != 3) {
+        _this.helper.renderStatus(chrome.i18n.getMessage("status_format_date"), 'error');
+        return;
+      }
+
+      dateArray.reverse();
+
+      dateArray[1] = dateArray[1].length == 1 ? '0' + dateArray[1] : dateArray[1];
+      dateArray[2] = dateArray[2].length == 1 ? '0' + dateArray[2] : dateArray[2];
 
       var record = {
         duration: time,
-        date: document.getElementById('date').value,
+        date: dateArray.join('-'),
         description: document.getElementById('description').value,
         summary: '',
         category: category,
@@ -119,14 +130,15 @@ Recording.prototype = {
         .addTimeRecord(record, function (error) {
 
         if (error) {
-          console.error('Could not add time record: ' + error.message);
+          console.error('Could not add time record: ' + error);
 
           _this.helper.hideWaitingAnimation();
           _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add_error"), 'error');
         }
-
-        _this.helper.hideWaitingAnimation();
+        else {
+          _this.helper.hideWaitingAnimation();
           _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add"), 'success', true);
+        }
       });
     });
   },

@@ -278,37 +278,40 @@ SharePointConnector.prototype = {
       formDigestTokenTimeout: 0
     }, function(items) {
 
-      if (items.formDigestTokenTimeout && items.formDigestToken)
-        callback(null, items.formDigestToken);
-      else {
-        // get new token
-        $.ajax({
-          url: _this.prepareApiUrl(_this.url) + 'contextinfo',
-          type: "POST",
-          contentType: "application/json; odata=verbose",
-          dataType: "json",
-          headers: {
-            "Authorization": _this.encodeAuthKey(_this.username, _this.password),
-            "Accept": "application/json; odata=verbose",
-            "Content-Length": 2
-          },
-          success: function (result) {
-            var digestToken = result['d']['GetContextWebInformation']['FormDigestValue'];
-            var digestTokenTimeout = result['d']['GetContextWebInformation']['FormDigestTimeoutSeconds'];
+      if (items.formDigestTokenTimeout && items.formDigestToken) {
 
-            chrome.storage.sync.set({
-              formDigestToken: digestToken,
-              formDigestTokenTimeout: digestTokenTimeout
-            }, function () {});
-
-            callback(null, digestToken);
-          },
-          error: function (err) {
-            console.error('Could not get form digest token: ' + err.message);
-            callback(err, null);
-          }
-        });
+        // TODO idea to improve the code
+        // we could check here, if the form digest token is still valid
+        // and then use it, instead of always asking for a new one.
       }
+
+      // get new token
+      $.ajax({
+        url: _this.prepareApiUrl(_this.url) + 'contextinfo',
+        type: "POST",
+        contentType: "application/json; odata=verbose",
+        dataType: "json",
+        headers: {
+          "Authorization": _this.encodeAuthKey(_this.username, _this.password),
+          "Accept": "application/json; odata=verbose",
+          "Content-Length": 2
+        },
+        success: function (result) {
+          var digestToken = result['d']['GetContextWebInformation']['FormDigestValue'];
+          var digestTokenTimeout = result['d']['GetContextWebInformation']['FormDigestTimeoutSeconds'];
+
+          chrome.storage.sync.set({
+            formDigestToken: digestToken,
+            formDigestTokenTimeout: digestTokenTimeout
+          }, function () {});
+
+          callback(null, digestToken);
+        },
+        error: function (err) {
+          console.error('Could not get form digest token: ' + err.message);
+          callback(err, null);
+        }
+      });
     });
   }
 };

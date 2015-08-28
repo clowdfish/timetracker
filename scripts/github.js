@@ -33,7 +33,7 @@ GithubConnector.prototype = {
       if(error)
         console.error(error);
 
-      if(error || !repo || repo.length == 0)
+      if(error || !repo || repo.length == 0)
         callback(Error(chrome.i18n.getMessage("status_github_repo")), null);
 
       var url = 'https://api.github.com/repos/' + _this.organization + '/' +
