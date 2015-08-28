@@ -3,16 +3,24 @@
 		"message": "Back",
 		"description": "Label for the back button."
 	},
-	"form_save": {
-		"message": "Save",
-		"description": "Label for the save button."
-	},
+  "form_save": {
+    "message": "Save",
+    "description": "Label for the save button."
+  },
+  "form_options": {
+    "message": "Settings",
+    "description": "Label for the options button."
+  },
 	"title": {
 		"message": "SP Time Tracker",
 		"description": "Extension Name."
 	},
 
 
+	"options_title": {
+		"message": "SP Time Tracker Options",
+		"description": "Title for the options section."
+	},
 	"options_github_title": {
 		"message": "Github credentials",
 		"description": "Title for the Github section."
@@ -55,8 +63,74 @@
 	},
 
 
-	"selection_form_record": {
-		"message": "Record time",
-		"description": "Label for the record time button."
-	}
+	"selection_project_label": {
+		"message": "Select project",
+		"description": "Label for the project selection."
+	},
+  "selection_project_empty": {
+    "message": "No projects available",
+    "description": "Label for empty projects list."
+  },
+  "selection_requirement_label": {
+    "message": "Select requirement",
+    "description": "Label for the requirement selection."
+  },
+  "selection_type_label": {
+    "message": "Select work item type",
+    "description": "Label for the type selection."
+  },
+  "selection_type_issue": {
+    "message": "Github Issue",
+    "description": "Label for Github issue."
+  },
+  "selection_type_item": {
+    "message": "Work Item",
+    "description": "Label for work item."
+  },
+  "selection_form_record": {
+    "message": "Record time",
+    "description": "Label for the record time button."
+  },
+
+
+  "recording_project_label": {
+    "message": "Selected project",
+    "description": "Label for the project selection."
+  },
+  "recording_project_empty": {
+    "message": "No project selected",
+    "description": "Label for an empty project selection."
+  },
+  "recording_issue_label": {
+    "message": "Issue you worked on",
+    "description": "Label for the issue selection."
+  },
+  "recording_category_label": {
+    "message": "Category you worked on",
+    "description": "Label for the category selection."
+  },
+  "recording_description_label": {
+    "message": "What you did",
+    "description": "Label for the description section."
+  },
+  "recording_description_placeholder": {
+    "message": "A short description of your work",
+    "description": "The description placeholder."
+  },
+  "recording_time_label": {
+    "message": "Time you spent",
+    "description": "Label for the time section."
+  },
+  "recording_time_placeholder": {
+    "message": "e.g. 2:00",
+    "description": "The time placeholder."
+  },
+  "recording_date_change": {
+    "message": "change date",
+    "description": "Label for the change date link."
+  },
+  "recording_save": {
+    "message": "Store time",
+    "description": "The store time button."
+  }
 }

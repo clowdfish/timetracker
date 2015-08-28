@@ -14,48 +14,49 @@
   <div class="container">
     <h1 id="github-title" class="title">Github credentials</h1>
 
-    <label for="github_username" class="label" id="github_username_label">User name</label>
-    <input type="text" id="github_username" name="github_username" placeholder="John Doe" class="input">
+    <label for="github-username" class="label" id="github-username-label">User name</label>
+    <input type="text" id="github-username" name="github-username" placeholder="John Doe" class="input">
 
-    <label for="github_password" class="label" id="github_password_label">Access token</label>
-    <input type="password" id="github_password" name="github_password" placeholder="******" class="input">
+    <label for="github-password" class="label" id="github-password-label">Access token</label>
+    <input type="password" id="github-password" name="github-password" placeholder="******" class="input">
   </div>
 
   <div class="container">
     <h1 id="sharepoint-title" class="title">SharePoint credentials</h1>
 
-    <label for="sharepoint_url" class="label" id="sharepoint_url_label">SharePoint URL</label>
-    <input type="url" id="sharepoint_url" name="url" placeholder="http://www.your-server.com" class="input">
+    <label for="sharepoint-url" class="label" id="sharepoint-url-label">SharePoint URL</label>
+    <input type="url" id="sharepoint-url" name="url" placeholder="http://www.your-server.com" class="input">
 
-    <label for="sharepoint_username" class="label" id="sharepoint_username_label">User name</label>
-    <input type="text" id="sharepoint_username" name="sharepoint_username" placeholder="John Doe" class="input">
+    <label for="sharepoint-username" class="label" id="sharepoint-username-label">User name</label>
+    <input type="text" id="sharepoint-username" name="sharepoint-username" placeholder="John Doe" class="input">
 
-    <label for="sharepoint_password" class="label" id="sharepoint_password_label">Password</label>
-    <input type="password" id="sharepoint_password" name="sharepoint_password" placeholder="******" class="input">
+    <label for="sharepoint-password" class="label" id="sharepoint-password-label">Password</label>
+    <input type="password" id="sharepoint-password" name="sharepoint-password" placeholder="******" class="input">
   </div>
 
   <div class="container">
     <h1 id="settings-title" class="title">Other settings</h1>
 
     <div class="checkbox">
-      <input type="checkbox" id="remember_project" />
-      <label for="remember_project">Remember recent project</label>
+      <input type="checkbox" id="remember-project" />
+      <label for="remember-project" id="remember-project-label">Remember recent project</label>
     </div>
 
     <div class="checkbox">
-      <input type="checkbox" id="remember_password" checked />
-      <label for="remember_password">Remember passwords</label>
+      <input type="checkbox" id="remember-password" checked />
+      <label for="remember-password" id="remember-password-label">Remember passwords</label>
     </div>
   </div>
 
   <div id="status"></div>
 
   <div class="button-container">
-    <a href="selection.html" class="link left">Back</a>
+    <a href="selection.html" class="link left" id="back">Back</a>
     <button class="button right" id="save">Save</button>
   </div>
 
   <script src="scripts/config.js"></script>
+  <script src="scripts/helper.js"></script>
   <script src="scripts/options.js"></script>
 </body>
 </html>

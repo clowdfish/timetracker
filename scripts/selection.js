@@ -1,5 +1,5 @@
 /**
- *
+ * The selection class.
  *
  * @constructor
  */
@@ -12,7 +12,7 @@ Selection.prototype = {
   constructor: Selection,
 
   /**
-   *
+   * Check selections and put to storage.
    */
   processEntries: function() {
 
@@ -50,7 +50,7 @@ Selection.prototype = {
   },
 
   /**
-   *
+   * Load recently selected project.
    */
   restoreSelection: function() {
 
@@ -84,7 +84,7 @@ Selection.prototype = {
   },
 
   /**
-   *
+   * Load projects from the back end.
    *
    * @param callback
    */
@@ -129,7 +129,7 @@ Selection.prototype = {
   },
 
   /**
-   *
+   * Load requirements from the back end.
    *
    * @param projectId
    * @param callback
@@ -152,7 +152,6 @@ Selection.prototype = {
 
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
         .getRequirements(projectId, function (resultList) {
-
           var requirementsList = document.getElementById('requirement-item');
 
           // delete all existing nodes first
@@ -163,7 +162,6 @@ Selection.prototype = {
           if (resultList && resultList.length) {
 
             resultList.forEach(function (result) {
-
               var option = document.createElement('option');
               option.text = result['Title'];
               option.value = result['Id'];
@@ -181,9 +179,17 @@ Selection.prototype = {
   },
 
   /**
-   *
+   * Add translations to the selection page.
    */
   addTranslations: function() {
+    document.getElementsByTagName('title').item(0).innerHTML = chrome.i18n.getMessage("title");
+    document.getElementById("project-title").innerHTML = chrome.i18n.getMessage("selection_project_label");
+    document.getElementById("project-empty-tag").innerHTML = chrome.i18n.getMessage("selection_project_empty");
+    document.getElementById("requirement-title").innerHTML = chrome.i18n.getMessage("selection_requirement_label");
+    document.getElementById("type-title").innerHTML = chrome.i18n.getMessage("selection_type_label");
+    document.getElementById("item-label").innerHTML = chrome.i18n.getMessage("selection_type_item");
+    document.getElementById("issue-label").innerHTML = chrome.i18n.getMessage("selection_type_issue");
+    document.getElementById("button-options").innerHTML = chrome.i18n.getMessage("form_options");
     document.getElementById("record").innerHTML = chrome.i18n.getMessage("selection_form_record");
   }
 };

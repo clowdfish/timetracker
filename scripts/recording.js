@@ -1,5 +1,5 @@
 /**
- *
+ * The recording class.
  *
  * @constructor
  */
@@ -12,7 +12,7 @@ Recording.prototype = {
   constructor: Recording,
 
   /**
-   *
+   * Handles the UI elements for selecting a different date.
    *
    */
   editDate: function() {
@@ -56,7 +56,7 @@ Recording.prototype = {
   },
 
   /**
-   *
+   * Adds a time record to the back end.
    *
    */
   addTimeRecord: function() {
@@ -119,7 +119,7 @@ Recording.prototype = {
   },
 
   /**
-   *
+   * Checks the input and renders a error message, if some input is missing.
    *
    * @returns {boolean}
    */
@@ -132,13 +132,14 @@ Recording.prototype = {
       return false;
     }
 
+    // TODO
+
     _this.helper.renderStatus('');
     return true;
   },
 
   /**
-   *
-   *
+   * Fill issue list or category list respectively.
    */
   prepareView: function() {
 
@@ -214,6 +215,25 @@ Recording.prototype = {
           });
       }
     });
+  },
+
+  /**
+   * Add translations to the recording page.
+   */
+  addTranslations: function() {
+
+    document.getElementsByTagName('title').item(0).innerHTML = chrome.i18n.getMessage("title");
+    document.getElementById('selected-project-label').innerHTML = chrome.i18n.getMessage("recording_project_label");
+    document.getElementById('selected-project').innerHTML = chrome.i18n.getMessage("recording_project_empty");
+    document.getElementById('github-title').innerHTML = chrome.i18n.getMessage("recording_issue_label");
+    document.getElementById('work-item-title').innerHTML = chrome.i18n.getMessage("recording_category_label");
+    document.getElementById('description-title').innerHTML = chrome.i18n.getMessage("recording_description_label");
+    document.getElementById('description').placeholder = chrome.i18n.getMessage("recording_description_placeholder");
+    document.getElementById('time-title').innerHTML = chrome.i18n.getMessage("recording_time_label");
+    document.getElementById('time-input').placeholder = chrome.i18n.getMessage("recording_time_placeholder");
+    document.getElementById('date-change').innerHTML = chrome.i18n.getMessage("recording_date_change");
+    document.getElementById('back').innerHTML = chrome.i18n.getMessage("form_back");
+    document.getElementById('save').innerHTML = chrome.i18n.getMessage("recording_save");
   }
 };
 
@@ -223,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var recording = new Recording();
 
   recording.prepareView();
+  recording.addTranslations();
 
   document.getElementById('date-change').addEventListener('click', recording.editDate.bind(recording));
   document.getElementById('store').addEventListener('click', recording.addTimeRecord.bind(recording));
