@@ -19,22 +19,21 @@ Selection.prototype = {
     var _this = this;
 
     var projectElement = document.getElementById('project-item');
+    var requirementElement = document.getElementById('requirement-item');
+
+    if (projectElement.selectedIndex == -1 || requirementElement.selectedIndex == -1) {
+      _this.helper.renderStatus(chrome.i18n.getMessage("status_selection_incomplete"), 'error');
+      return;
+    }
 
     var projectId = projectElement.value;
     var projectTitle = projectElement.options[ projectElement.selectedIndex ].text;
-
-    var requirementElement = document.getElementById('requirement-item');
 
     var requirementId = requirementElement.value;
     var requirementTitle = requirementElement.options[ requirementElement.selectedIndex ].text;
 
     var typeElement = document.getElementById('item').checked;
     var type = typeElement ? 'item' : 'github';
-
-    if (!projectTitle || !requirementTitle) {
-      _this.helper.renderStatus(chrome.i18n.getMessage("status_selection_incomplete"), 'error');
-      return;
-    }
 
     chrome.storage.sync.set({
       projectId: projectId,

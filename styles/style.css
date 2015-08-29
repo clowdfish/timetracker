@@ -6,7 +6,7 @@ body {
   font-size: 100%;
   padding: .5em;
   margin: 0;
-  min-width: 18em;
+  width: 20em;
 }
 
 *:focus {
@@ -40,7 +40,7 @@ body {
   font: inherit;
   margin-bottom: 0.8em !important;
   min-height: 2em;
-  min-width: 18em;
+  min-width: 20em;
   padding: 0.5em;
   outline: none;
   font-size: 0.9em;
@@ -130,22 +130,43 @@ input[type=radio]:checked + label {
 #status {
   /* avoid an excessively wide status text */
   display: block;
-  white-space: pre;
+  /*white-space: pre;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: hidden;*/
   max-width: 95%;
 }
 #status.success {
   margin: 0.5em 0;
   color: green;
 }
+#status.success:before {
+  font-family: FontAwesome;
+  content: '\f00c';
+  display: inline-block;
+  margin-top: 0.3em;
+  margin-right: 0.5em;
+}
 #status.error {
   margin: 0.5em 0;
   color: red;
 }
+#status.error:before {
+  font-family: FontAwesome;
+  content: '\f071';
+  display: inline-block;
+  margin-top: 0.3em;
+  margin-right: 0.5em;
+}
 #status.warn {
   margin: 0.5em 0;
   color: #ffd62f;
+}
+#status.warn:before {
+  font-family: FontAwesome;
+  content: '\f071';
+  display: inline-block;
+  margin-top: 0.3em;
+  margin-right: 0.5em;
 }
 
 .right {

@@ -1,5 +1,5 @@
 // dimensions
-$popup-width: 18em;
+$popup-width: 20em;
 
 // colors
 $c-primary: #ee0000;
@@ -14,7 +14,7 @@ body {
   font-size: 100%;
   padding: .5em;
   margin: 0;
-  min-width: $popup-width;
+  width: $popup-width;
 }
 
 *:focus {
@@ -150,24 +150,48 @@ input[type=radio] {
 #status {
   /* avoid an excessively wide status text */
   display: block;
-  white-space: pre;
+  /*white-space: pre;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: hidden;*/
   max-width: 95%;
 
   &.success {
     margin: 0.5em 0;
     color: green;
+
+    &:before {
+      font-family: FontAwesome;
+      content: '\f00c';
+      display: inline-block;
+      margin-top: 0.3em;
+      margin-right: 0.5em;
+    }
   }
 
   &.error {
     margin: 0.5em 0;
     color: red;
+
+    &:before {
+      font-family: FontAwesome;
+      content: '\f071';
+      display: inline-block;
+      margin-top: 0.3em;
+      margin-right: 0.5em;
+    }
   }
 
   &.warn {
     margin: 0.5em 0;
     color: #ffd62f;
+
+    &:before {
+      font-family: FontAwesome;
+      content: '\f071';
+      display: inline-block;
+      margin-top: 0.3em;
+      margin-right: 0.5em;
+    }
   }
 }
 

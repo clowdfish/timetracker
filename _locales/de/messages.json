@@ -126,7 +126,7 @@
     "description": "Label for the requirement selection."
   },
   "selection_type_label": {
-    "message": "Wäjle den Typ des Eintrags",
+    "message": "Wähle den Typ des Eintrags",
     "description": "Label for the type selection."
   },
   "selection_type_issue": {
