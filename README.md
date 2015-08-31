@@ -1,8 +1,8 @@
-# timetracker
+# SPTimeTracker
 An easy to use time tracker using data on a SharePoint 2013.
 
 ## Considerations
-Before we can start deploying and using the plugin, there are some things we must take care for:
+Before we can start deploying and using the plugin, there are some things we must take care for.
 
 ### SharePoint 2013 server
 
@@ -39,7 +39,7 @@ To get project and requirement data and to add time tracking records, we need a 
 
 ### Github
 
-Head to [Github](https://github.com) and create a new account. Most likely you will also need an organization so you should create this one as well. Once you did so, head to the *settings* of the account you will use to work with the code hosted in you organization account. Go the the *Personal access tokens* section and create a new access token. This tolken will be required to authenticate the Chrome Extension.
+Head to [Github](https://github.com) and create a new account. Most likely you will also need an organization so you should create this one as well. Once you did so, head to the *settings* of the account that you will use to commit your code to. Go the the *Personal access tokens* section and create a new access token. This token will be required to authenticate the Google Chrome Extension with Github.
 
 
 ## Installation
@@ -48,7 +48,7 @@ Open Chrome and head to the menu. Select `More Tools -> Extensions` to open the 
 Once it is installed add the SharePoint url of the site or page that you want to access. For the Gitgub credentials you should use your user name and the generated access token. 
 
 ## Preparing the structure
-We assume, that you handle all project management in your SharePoint environment. So you create your projects there, add requirements, create project members and manage project phases. We only must remember the project id and requirement id, if we want to add a repository and issues on Github. To give you an overview the following table depicts the link betweeb SharePoint and Github:
+We assume that you handle all project management in your SharePoint environment. So create your projects there, add requirements, create project members and manage project phases. We only must remember the project id and requirement id to create references when we want to add a repository and issues on Github. The following table depicts the link between SharePoint and Github:
 
 | SharePoint list | Github data   | Relation |
 | --------------- |:-------------:| --------:|
@@ -75,9 +75,9 @@ For the repository the project id from SharePoint must be added in the repositor
 
 *[Pro-1234] The repository description*
 
-Then the Time Tracker plugin could just retrieve the data from Github and correlate it with data from SharePoint. 
+Now the Time Tracker plugin can retrieve the data from Github and correlate it with data from SharePoint. 
 
 
 ## Outlook
-In future version, we want to enhance the Google Chrome extension to integrate into the Github page smoothly. 
+In future versions we want to enhance the Google Chrome extension to integrate into the Github page smoothly. 
 As soon as you create a new repository it will offer a selection of available projects from SharePoint and then add the reference on its own. Same goes for creating new issues.
