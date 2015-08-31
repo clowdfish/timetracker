@@ -5,6 +5,11 @@
  */
 function Options() {
   this.helper = new Helper();
+
+  chrome.runtime.connect({ name: "stateChannel" })
+    .postMessage({ state: 'options' });
+
+  this.port = chrome.runtime.connect({ name: "optionsChannel" });
 }
 
 Options.prototype = {
@@ -94,6 +99,67 @@ Options.prototype = {
     document.getElementById('remember-password-label').innerHTML = chrome.i18n.getMessage("options_form_password_remember");
     document.getElementById('back').innerHTML = chrome.i18n.getMessage("form_back");
     document.getElementById('save').innerHTML = chrome.i18n.getMessage("form_save");
+  },
+
+  /**
+   * Sends all input changes to the event page to be persisted in case the user
+   * closes the pop-up unintentionally.
+   */
+  addEventListeners: function() {
+
+    var _this = this;
+
+    /* user data */
+
+    document.getElementById("sharepoint-url").addEventListener("keydown", function(event) {
+      setTimeout(function() {
+        _this.port.postMessage({ "sharepointUrl": event.target.value });    
+      }, 50);
+    });
+
+    document.getElementById("sharepoint-username").addEventListener("keydown", function(event) {
+      setTimeout(function() {
+        _this.port.postMessage({ "sharepointUsername": event.target.value });
+      }, 50);
+    });
+
+    document.getElementById("github-username").addEventListener("keydown", function(event) {
+      setTimeout(function() {
+        _this.port.postMessage({ "githubUsername": event.target.value });
+      }, 50);
+    });
+
+    /* password inputs */
+
+    chrome.storage.sync.get({
+      rememberPassword: false
+    }, function(items) {
+
+      if(items.rememberPassword) {
+
+        document.getElementById("sharepoint-password").addEventListener("keydown", function (event) {
+          setTimeout(function() {
+            _this.port.postMessage({"sharepointPassword": event.target.value});
+          }, 50);
+        });
+
+        document.getElementById("github-password").addEventListener("keydown", function(event) {
+          setTimeout(function() {
+            _this.port.postMessage({ "githubPassword": event.target.value });
+          }, 50);
+        });
+      }
+    });
+
+    /* other settings */
+
+    document.getElementById("remember-project").addEventListener("change", function(event) {
+      _this.port.postMessage({ "rememberProject": event.target.checked });
+    });
+
+    document.getElementById("remember-password").addEventListener("change", function(event) {
+      _this.port.postMessage({ "rememberPassword": event.target.checked });
+    });
   }
 };
 
@@ -102,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var options = new Options();
 
   options.addTranslations();
+  options.addEventListeners();
   options.restoreOptions();
 
   document.getElementById('save').addEventListener('click', options.saveOptions.bind(options));

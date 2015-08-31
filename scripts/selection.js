@@ -5,6 +5,9 @@
  */
 function Selection() {
   this.helper = new Helper();
+
+  chrome.runtime.connect({ name: "stateChannel" })
+    .postMessage({ state: 'selection' });
 }
 
 Selection.prototype = {
@@ -102,7 +105,12 @@ Selection.prototype = {
       }
 
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
-        .getProjects(function (resultList) {
+        .getProjects(function (error, resultList) {
+
+          if(error) {
+            _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_error"), 'error');
+            callback();
+          }
 
           var projectsList = document.getElementById('project-item');
 

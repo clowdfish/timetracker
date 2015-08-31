@@ -42,11 +42,10 @@ SharePointConnector.prototype = {
         "Accept": "application/json; odata=verbose"
       },
       success: function(result) {
-        callback(_this.formatProjects(result));
+        callback(null, _this.formatProjects(result));
       },
       error: function(err) {
-        console.error("An error occurred: " + err.message);
-        callback([]);
+        callback(err, null);
       }
     });
   },
@@ -92,11 +91,10 @@ SharePointConnector.prototype = {
         "Accept": "application/json; odata=verbose"
       },
       success: function(result) {
-        callback(_this.formatRequirement(result, projectId));
+        callback(null, _this.formatRequirement(result, projectId));
       },
       error: function(err) {
-        console.error("An error occurred: " + err.message);
-        callback([]);
+        callback(err, null);
       }
     });
   },

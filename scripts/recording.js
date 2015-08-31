@@ -5,6 +5,9 @@
  */
 function Recording() {
   this.helper = new Helper();
+
+  chrome.runtime.connect({ name: "stateChannel" })
+    .postMessage({ state: 'recording' });
 }
 
 Recording.prototype = {

@@ -29,6 +29,10 @@
     "message": "Cannot connect to SharePoint, connection data missing.",
     "description": "Message that is shown, when auth data is missing."
   },
+  "status_sharepoint_error": {
+    "message": "Could not connect to SharePoint. Please check connection data.",
+    "description": "Message that is shown, when auth was unsuccessful."
+  },
   "status_format_date": {
     "message": "Please use the proper date format!",
     "description": "Message that is shown for a wrong date format."
@@ -103,11 +107,11 @@
 		"message": "Access token",
 		"description": "Label for the access token input."
 	},
-	"options_form_password_remember": {
+	"options_form_project_remember": {
 		"message": "Remember recent project",
 		"description": "Remember project label."
 	},
-	"options_form_project_remember": {
+	"options_form_password_remember": {
 		"message": "Remember passwords",
 		"description": "Remember password label."
 	},
