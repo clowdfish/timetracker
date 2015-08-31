@@ -160,7 +160,13 @@ Selection.prototype = {
       }
 
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
-        .getRequirements(projectId, function (resultList) {
+        .getRequirements(projectId, function (error, resultList) {
+
+          if(error) {
+            _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_error"), 'error');
+            callback();
+          }
+
           var requirementsList = document.getElementById('requirement-item');
 
           // delete all existing nodes first
