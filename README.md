@@ -4,13 +4,43 @@ An easy to use time tracker using data on a SharePoint 2013.
 ## Considerations
 Before we can start deploying and using the plugin, there are some things we must take care for:
 
-* **SharePoint 2013 server**
+### SharePoint 2013 server
 
-  To get project and requirement data and to add time tracking records, we need a SharePoint server with the appropriate list  structure and authentication scheme.
+To get project and requirement data and to add time tracking records, we need a SharePoint server with the appropriate list  structure and authentication scheme. In SharePoint you must activate basic authentication and make sure to use an SSL encrypted connection. Then add at least three lists: `Projects`, `Requirements` and `Time Records`. 
+  
+* **Project list (minimum data structure)**
 
-* **create a Github organization and an access token**
+  | Field           | Data type     | Description                   |
+  | --------------- |:-------------:| ------------------------------|
+  | Id              | int           | The unique project id         |
+  | Title           | string        | The title of the project      |
 
-Before going into details of SharePoint we will install the plug-in first.
+* **Requirement list (minimum data structure)**
+ 
+  | Field           | Data type     | Description                   |
+  | --------------- |:-------------:| ------------------------------|
+  | Id              | int           | The unique requirement id     |
+  | Title           | string        | The title of the requirement  |
+  | Project         | lookup        | A reference to the project    |  
+
+* **Time Records list (minimum data structure)**
+
+  | Field           | Data type     | Description                                                            |
+  | --------------- |:-------------:| -----------------------------------------------------------------------|
+  | Id              | int           | The unique time record id                                              |
+  | Duration        | int           | Number of minutes taken for this task                                  |
+  | Date            | daten         | The date when the item was created                                     |  
+  | Description     | string        | A description of the work that was done                                |
+  | Summary         | string        | A summary of the work that was done; could include the Github comments |  
+  | Category        | string        | Category like “Customer Meeting”, “Github” or “Documentation”          |
+  | Requirement     | lookup        | Reference to the related requirement                                   |  
+  | User            | lookup        | Reference to the user who added the item                               |  
+  
+
+### Github
+
+Head to [Github](https://github.com) and create a new account. Most likely you will also need an organization so you should create this one as well. Once you did so, head to the *settings* of the account you will use to work with the code hosted in you organization account. Go the the *Personal access tokens* section and create a new access token. This tolken will be required to authenticate the Chrome Extension.
+
 
 ## Installation
 Open Chrome and head to the menu. Select `More Tools -> Extensions` to open the Google Chrome extension area. Drag and drop the extension file (SPTimeTracker.crx) to the window and have it installed.
