@@ -141,6 +141,10 @@ Recording.prototype = {
         else {
           _this.helper.hideWaitingAnimation();
           _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add"), 'success', true);
+
+          setTimeout(function() {
+            window.close();
+          }, 1000);
         }
       });
     });
