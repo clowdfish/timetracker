@@ -7,6 +7,8 @@ var Config = {
   categories: [
     'Dokumentation',
     'Entwicklung',
+    'Fehlerbehebung',
+    'Kommunikation',
     'Kundenbetreuung',
     'Verwaltung'
   ]
