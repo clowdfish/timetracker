@@ -96,13 +96,17 @@ Recording.prototype = {
       }
 
       var list;
+      var category, summary = "";
 
-      if(items.type == 'item')
+      if(items.type == 'item') {
         list = document.getElementById("category-list");
-      else
+        category = list.options[list.selectedIndex].value;
+      }
+      else {
         list = document.getElementById("github-issue-list");
-
-      var category = list.options[list.selectedIndex].value;
+        category = 'Github';
+        summary = list.options[list.selectedIndex].value;
+      }
 
       var timeArray = document.getElementById('time-input').value.split(':');
       var time = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
@@ -124,7 +128,7 @@ Recording.prototype = {
         duration: time,
         date: dateArray.join('-'),
         description: document.getElementById('description').value,
-        summary: '',
+        summary: summary,
         category: category,
         requirementId: document.getElementById('selected-requirement').textContent
       };
@@ -132,21 +136,21 @@ Recording.prototype = {
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
         .addTimeRecord(record, function (error) {
 
-        if (error) {
-          console.error('Could not add time record: ' + error);
+          if (error) {
+            console.error('Could not add time record: ' + error);
 
-          _this.helper.hideWaitingAnimation();
-          _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add_error"), 'error');
-        }
-        else {
-          _this.helper.hideWaitingAnimation();
-          _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add"), 'success', true);
+            _this.helper.hideWaitingAnimation();
+            _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add_error"), 'error');
+          }
+          else {
+            _this.helper.hideWaitingAnimation();
+            _this.helper.renderStatus(chrome.i18n.getMessage("status_sharepoint_add"), 'success', true);
 
-          setTimeout(function() {
-            window.close();
-          }, 1000);
-        }
-      });
+            setTimeout(function() {
+              window.close();
+            }, 1000);
+          }
+        });
     });
   },
 

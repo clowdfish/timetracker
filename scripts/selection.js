@@ -118,7 +118,8 @@ Selection.prototype = {
           var projectsList = document.getElementById('project-item');
 
           if (resultList && resultList.length) {
-            document.getElementById("project-query-button").style.display = 'block';
+            document.getElementById("project-query-button").style.display =
+              resultList.length > 1 ? 'block' : 'none';
 
             // delete all existing nodes first
             while (projectsList.firstChild) {
@@ -181,8 +182,9 @@ Selection.prototype = {
           }
 
           if (resultList && resultList.length) {
-            document.getElementById("requirement-query-button").style.display = 'block';
-
+            document.getElementById("requirement-query-button").style.display = 
+              resultList.length > 1 ? 'block' : 'none';
+            
             resultList.forEach(function (result) {
               var option = document.createElement('option');
               option.text = result['Title'];

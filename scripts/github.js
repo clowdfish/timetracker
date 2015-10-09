@@ -28,43 +28,53 @@ GithubConnector.prototype = {
 
     var _this = this;
 
-    _this.getRepos(projectId, function(error, repo) {
+    _this.getRepos(projectId, function(error, repos) {
 
       if(error)
         console.error(error);
 
-      if(error || !repo || repo.length == 0)
+      if(error || !repos || repos.length == 0)
         callback(Error(chrome.i18n.getMessage("status_github_repo")), null);
 
-      var url = 'https://api.github.com/repos/' + _this.organization + '/' +
-        repo[0]['name'] + '/issues';
+      var unfinishedRepoRequests = repos.length;
+      var issueCollection = [];
 
-      $.ajax({
-        url: url,
-        type: "GET",
-        contentType: "application/json",
-        dataType: "json",
-        headers: {
-          "Authorization": _this.encodeAuthKey(_this.username, _this.password),
-          "Accept": "application/json"
-        },
-        success: function(result) {
+      repos.forEach(function(repo) {
 
-          if(!result || result.length == 0) {
+        var url = 'https://api.github.com/repos/' + _this.organization + '/' +
+          repo['name'] + '/issues';
+
+        $.ajax({
+          url: url,
+          type: "GET",
+          contentType: "application/json",
+          dataType: "json",
+          headers: {
+            "Authorization": _this.encodeAuthKey(_this.username, _this.password),
+            "Accept": "application/json"
+          },
+          success: function(result) {
+            unfinishedRepoRequests--;
+
+            if(result && result.length > 0) {
+              var issuesForRequirementId = _this.formatIssues(result, requirementId);
+
+              if (issuesForRequirementId.length > 0)
+                issueCollection = issueCollection.concat(issuesForRequirementId)
+            }
+
+            if(unfinishedRepoRequests == 0) {
+              if (issueCollection.length == 0)
+                console.warn('No issue available for the current requirement id.');
+
+              callback(null, issueCollection);
+            }
+          },
+          error: function(err) {
+            console.error("An error occurred: " + err.message);
             callback(Error(chrome.i18n.getMessage("status_github_issue")), null);
           }
-
-          var issuesForRequirementId = _this.formatIssues(result, requirementId);
-
-          if(issuesForRequirementId.length == 0)
-            console.warn('No issue available for the current requirement id.');
-
-          callback(null, issuesForRequirementId);
-        },
-        error: function(err) {
-          console.error("An error occurred: " + err.message);
-          callback(err, null);
-        }
+        });
       });
     });
   },
