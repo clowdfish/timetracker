@@ -118,6 +118,7 @@ Selection.prototype = {
           var projectsList = document.getElementById('project-item');
 
           if (resultList && resultList.length) {
+            document.getElementById("project-query-button").style.display = 'block';
 
             // delete all existing nodes first
             while (projectsList.firstChild) {
@@ -133,6 +134,8 @@ Selection.prototype = {
               projectsList.appendChild(option);
             });
           }
+          else
+            document.getElementById("project-query-button").style.display = 'none';
 
           callback()
         }
@@ -178,6 +181,7 @@ Selection.prototype = {
           }
 
           if (resultList && resultList.length) {
+            document.getElementById("requirement-query-button").style.display = 'block';
 
             resultList.forEach(function (result) {
               var option = document.createElement('option');
@@ -187,6 +191,8 @@ Selection.prototype = {
               requirementsList.appendChild(option);
             });
           }
+          else
+            document.getElementById("requirement-query-button").style.display = 'none';
 
           _this.helper.hideWaitingAnimation();
 
@@ -209,27 +215,41 @@ Selection.prototype = {
     var queryCloseButton = document.getElementById("project-query-close-button");
     var projectList = document.getElementById('project-item');
 
-    queryButton.style.display = 'none';
-    queryContainer.style.display = 'block';
+    if(projectList.length > 1) {
 
-    queryInput.focus();
+      queryButton.style.display = 'none';
+      queryContainer.style.display = 'block';
 
-    var optionArray = [];
+      queryInput.focus();
 
-    for(var i=0; i<projectList.length; i++) {
-      optionArray.push({
-        text: projectList[i].text,
-        value: projectList[i].value
+      var optionArray = [];
+
+      for(var i=0; i<projectList.length; i++) {
+        optionArray.push({
+          text: projectList[i].text,
+          value: projectList[i].value
+        });
+      }
+
+      queryCloseButton.addEventListener('click', function() {
+        showSearchResults("");
+        queryButton.style.display = 'inline-block';
+        queryContainer.style.display = 'none';
+      });
+
+      queryInput.addEventListener('keyup', function() {
+        var queryString = this.value;
+
+        showSearchResults(queryString);
       });
     }
 
-    queryCloseButton.addEventListener('click', function() {
-      queryButton.style.display = 'inline-block';
-      queryContainer.style.display = 'none';
-    });
-
-    queryInput.addEventListener('keyup', function() {
-      var queryString = this.value;
+    /**
+     * Show search results in result list based on query string.
+     *
+     * @param queryString
+     */
+    function showSearchResults(queryString) {
 
       optionArray.forEach(function(option, index) {
 
@@ -250,7 +270,7 @@ Selection.prototype = {
           }
         }
       });
-    });
+    }
   },
 
   /**
@@ -266,27 +286,41 @@ Selection.prototype = {
     var queryCloseButton = document.getElementById("requirement-query-close-button");
     var requirementsList = document.getElementById('requirement-item');
 
-    queryButton.style.display = 'none';
-    queryContainer.style.display = 'block';
+    if(requirementsList.length > 1) {
 
-    queryInput.focus();
+      queryButton.style.display = 'none';
+      queryContainer.style.display = 'block';
 
-    var optionArray = [];
+      queryInput.focus();
 
-    for(var i=0; i<requirementsList.length; i++) {
-      optionArray.push({
-        text: requirementsList[i].text,
-        value: requirementsList[i].value
+      var optionArray = [];
+
+      for(var i=0; i<requirementsList.length; i++) {
+        optionArray.push({
+          text: requirementsList[i].text,
+          value: requirementsList[i].value
+        });
+      }
+
+      queryCloseButton.addEventListener('click', function() {
+          showSearchResults("");
+          queryButton.style.display = 'inline-block';
+          queryContainer.style.display = 'none';
+        });
+
+      queryInput.addEventListener('keyup', function() {
+        var queryString = this.value;
+
+        showSearchResults(queryString);
       });
     }
 
-    queryCloseButton.addEventListener('click', function() {
-        queryButton.style.display = 'inline-block';
-        queryContainer.style.display = 'none';
-      });
-
-    queryInput.addEventListener('keyup', function() {
-      var queryString = this.value;
+    /**
+     * Show search results in result list based on query string.
+     *
+     * @param queryString
+     */
+    function showSearchResults(queryString) {
 
       optionArray.forEach(function(option, index) {
 
@@ -307,7 +341,7 @@ Selection.prototype = {
           }
         }
       });
-    });
+    }
   },
 
   /**
