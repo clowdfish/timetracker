@@ -191,20 +191,20 @@ input[type=radio]:checked + label {
 .selection .container.bottom {
   margin-bottom: 3em;
 }
-.selection #requirement-query {
+.selection .query {
   display: none;
 }
-.selection #requirement-query-button {
+.selection .query-button {
   float: right;
   margin-top: 0.16em;
   margin-right: 0.5em;
   cursor: pointer;
 }
-.selection #requirement-query-input {
+.selection .query-input {
   width: 90%;
   min-width: 90%;
 }
-.selection #requirement-query-close-button {
+.selection .query-close-button {
   float: right;
   margin-right: 0.5em;
   margin-top: 0.4em;

@@ -1,15 +1,15 @@
 
 var Config = {
   projectsListName: 'Projekte',
-  requirementsListName: 'Projektaufgaben',
+  requirementsListName: 'Projektthemen',
   timeRecordsListName: 'Zeiterfassung',
   githubOrganization: 'clowdfish',
   categories: [
+    'Consulting',
     'Dokumentation',
     'Entwicklung',
     'Fehlerbehebung',
-    'Kommunikation',
-    'Kundenbetreuung',
-    'Verwaltung'
+    'Projektmanagement',
+    'Sonstiges'
   ]
 };

@@ -258,8 +258,12 @@ Recording.prototype = {
         new GithubConnector(items.githubUsername, items.githubPassword, Config.githubOrganization)
           .getIssues(items.projectId, items.requirementId, function(error, resultList) {
 
-            if(error)
+            if(error) {
               _this.helper.renderStatus(chrome.i18n.getMessage("status_github_error"), 'error');
+              document.getElementById('save').style.display =  "none";
+
+              _this.helper.hideWaitingAnimation();
+            }
             else {
               var issueList = document.getElementById('github-issue-list');
 

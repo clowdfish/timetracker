@@ -1,6 +1,6 @@
 {
   "name": "timetracker",
-  "version": "0.1.0",
+  "version": "1.2.3",
   "description": "A time tracking Chrome extension with SharePoint and Github integration.",
   "main": "gulpfile.js",
   "dependencies": {},

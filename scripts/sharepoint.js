@@ -31,6 +31,8 @@ SharePointConnector.prototype = {
     var _this = this;
 
     var fullUrl = _this.prepareApiUrl(_this.url) + 'web/lists/GetByTitle(\'' + _this.projectsListName + '\')/items';
+    fullUrl += '?$select=Id,Title,ProjektStatus,ProjektNrLookup';
+    fullUrl += '&$filter=ProjektStatus ne \'Geschlossen\'';
 
     $.ajax({
       url: fullUrl,
@@ -63,8 +65,8 @@ SharePointConnector.prototype = {
       return {
         'Id': result['Id'],
         'Title': result['Title'],
-        'Status': result['Status'],
-        'StartDate': result['StartDate']
+        'Number': result['ProjektNrLookup'],
+        'Status': result['ProjektStatus']
       };
     });
   },
@@ -80,6 +82,8 @@ SharePointConnector.prototype = {
     var _this = this;
 
     var fullUrl = _this.prepareApiUrl(_this.url) + 'web/lists/GetByTitle(\'' + _this.requirementsListName + '\')/items';
+    fullUrl += '?$select=Id,Title,Body,ProjektId';
+    fullUrl += '&$filter=(Status%20ne%20\'Abgeschlossen\')%20and%20(Status%20ne%20\'Zurückgestellt\')';
 
     $.ajax({
       url: fullUrl,
@@ -113,8 +117,7 @@ SharePointConnector.prototype = {
         'Id': item['Id'],
         'Title': item['Title'],
         'Description': item['Body'],
-        'ProjectId': item['ProjectId'],
-        'Date': item['Date']
+        'ProjectId': item['ProjektId']
       };
     }).filter(function(requirement) {
       return projectId && requirement['ProjectId'] == projectId;
@@ -205,13 +208,15 @@ SharePointConnector.prototype = {
             'type': listFullName // ListItemEntityTypeFullName
           },
           'Title': 'TimeTrackingItem',
-          'Duration': record.duration,
-          'Date': record.date,
-          'Description': record.description,
+          'Duration1': record.duration,
+          'Date1': record.date,
+          'Description1': record.description,
           'Summary': record.summary,
-          'Category': record.category,
-          'RequirementId': record.requirementId
+          'Category1': record.category,
+          'RequirementId': parseInt(record.requirementId)
         }, null, 0);
+
+        console.log(data);
 
         $.ajax({
           url: fullUrl,

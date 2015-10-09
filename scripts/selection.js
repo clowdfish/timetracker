@@ -4,6 +4,7 @@
  * @constructor
  */
 function Selection() {
+
   this.helper = new Helper();
 
   chrome.runtime.connect({ name: "stateChannel" })
@@ -58,6 +59,8 @@ Selection.prototype = {
 
     var _this = this;
 
+    _this.helper.showWaitingAnimation();
+
     chrome.storage.sync.get({
       projectId: '',
       requirementId: '',
@@ -67,20 +70,20 @@ Selection.prototype = {
 
       _this.loadProjects(function() {
 
-        if(items.rememberProject) {
+        if(items.rememberProject && items.projectId) {
 
-          if (items.projectId) {
-            document.getElementById('project-item').value = items.projectId;
+          document.getElementById('project-item').value = items.projectId;
 
-            _this.loadRequirements(items.projectId, function() {
-              if (items.requirementId)
-                document.getElementById('requirement-item').value = items.requirementId;
-            });
-          }
-
-          document.getElementById('item').checked = items.type == 'item';
-          document.getElementById('issue').checked = items.type == 'github';
+          _this.loadRequirements(items.projectId, function() {
+            if (items.requirementId)
+              document.getElementById('requirement-item').value = items.requirementId;
+          });
         }
+
+        document.getElementById('item').checked = items.type == 'item';
+        document.getElementById('issue').checked = items.type == 'github';
+
+        _this.helper.hideWaitingAnimation();
       });
     });
   },
@@ -124,7 +127,7 @@ Selection.prototype = {
             resultList.forEach(function (result) {
 
               var option = document.createElement('option');
-              option.text = result['Title'];
+              option.text = result['Number'] + ' - ' + result['Title'];
               option.value = result['Id'];
 
               projectsList.appendChild(option);
@@ -190,6 +193,63 @@ Selection.prototype = {
           callback()
         }
       );
+    });
+  },
+
+  /**
+   * Open the project query and add event listeners and handlers.
+   */
+  handleProjectQuery: function() {
+
+    var _this = this;
+
+    var queryButton = document.getElementById("project-query-button");
+    var queryContainer = document.getElementById("project-query");
+    var queryInput = document.getElementById("project-query-input");
+    var queryCloseButton = document.getElementById("project-query-close-button");
+    var projectList = document.getElementById('project-item');
+
+    queryButton.style.display = 'none';
+    queryContainer.style.display = 'block';
+
+    queryInput.focus();
+
+    var optionArray = [];
+
+    for(var i=0; i<projectList.length; i++) {
+      optionArray.push({
+        text: projectList[i].text,
+        value: projectList[i].value
+      });
+    }
+
+    queryCloseButton.addEventListener('click', function() {
+      queryButton.style.display = 'inline-block';
+      queryContainer.style.display = 'none';
+    });
+
+    queryInput.addEventListener('keyup', function() {
+      var queryString = this.value;
+
+      optionArray.forEach(function(option, index) {
+
+        if (option.text.indexOf(queryString) == -1) {
+          var elementIndex = _this.getElementIndex(projectList, option.value);
+
+          if (elementIndex > -1)
+            projectList.removeChild(projectList[elementIndex]);
+        }
+        else {
+          if(_this.getElementIndex(projectList, option.value) == -1) {
+
+            var child = document.createElement('option');
+            child.text = option.text;
+            child.value = option.value;
+
+            projectList.add(child, index)
+          }
+        }
+      });
     });
   },
 
@@ -298,4 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementById('requirement-query-button').addEventListener('click',
     selection.handleRequirementQuery.bind(selection));
+
+  document.getElementById('project-query-button').addEventListener('click',
+    selection.handleProjectQuery.bind(selection));
 });

@@ -3,7 +3,7 @@
 
   "name": "SharePoint Timetracking Plugin",
   "description": "This extension connects to a SharePoint server to provide easy time tracking capabilities.",
-  "version": "1.2.1",
+  "version": "1.2.3",
 
   "default_locale": "en",
   "icons": {
@@ -23,7 +23,7 @@
   "permissions": [
     "storage",
     "activeTab",
-    "http://demo.efexcon.com/",
+    "https://intra.efexcon.com/",
     "https://github.com/"
   ],
 

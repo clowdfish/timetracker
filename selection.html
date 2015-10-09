@@ -12,18 +12,23 @@
     </div>
 
     <div class="container">
+      <i id="project-query-button" class="fa fa-search query-button"></i>
       <h1 id="project-title" class="title">Select project</h1>
+      <div id="project-query" class="query">
+        <i id="project-query-close-button" class="fa fa-close query-close-button"></i>
+        <input type="text" class="input query-input" id="project-query-input" placeholder="Type your query string...">
+      </div>
       <select name="project" id="project-item" class="list" size="5">
         <option value="-1" id="project-empty-tag">No projects available</option>
       </select>
     </div>
 
     <div class="container">
-      <i id="requirement-query-button" class="fa fa-search"></i>
+      <i id="requirement-query-button" class="fa fa-search query-button"></i>
       <h1 id="requirement-title" class="title">Select requirement</h1>
-      <div id="requirement-query">
-        <i id="requirement-query-close-button" class="fa fa-close"></i>
-        <input type="text" class="input" id="requirement-query-input" placeholder="Type your query string...">
+      <div id="requirement-query" class="query">
+        <i id="requirement-query-close-button" class="fa fa-close query-close-button"></i>
+        <input type="text" class="input query-input" id="requirement-query-input" placeholder="Type your query string...">
       </div>
       <select name="requirement" id="requirement-item" class="list" size="5">
       </select>

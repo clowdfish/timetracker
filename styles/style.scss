@@ -222,23 +222,23 @@ input[type=radio] {
     }
   }
 
-  #requirement-query {
+  .query {
     display: none;
   }
 
-  #requirement-query-button {
+  .query-button {
     float: right;
     margin-top: 0.16em;
     margin-right: 0.5em;
     cursor: pointer;
   }
 
-  #requirement-query-input {
+  .query-input {
     width: 90%;
     min-width: 90%;
   }
 
-  #requirement-query-close-button {
+  .query-close-button {
     float: right;
     margin-right: 0.5em;
     margin-top: 0.4em;
