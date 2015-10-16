@@ -130,7 +130,8 @@ Recording.prototype = {
         description: document.getElementById('description').value,
         summary: summary,
         category: category,
-        requirementId: document.getElementById('selected-requirement').textContent
+        requirementId: document.getElementById('selected-requirement-id').textContent,
+        projectId: document.getElementById('selected-project-id').textContent
       };
 
       new SharePointConnector(items.sharepointUrl, items.sharepointUsername, items.sharepointPassword, Config)
@@ -230,7 +231,8 @@ Recording.prototype = {
     }, function(items) {
 
       document.getElementById('selected-project').textContent = items.projectTitle;
-      document.getElementById('selected-requirement').textContent = items.requirementId;
+      document.getElementById('selected-project-id').textContent = items.projectId;
+      document.getElementById('selected-requirement-id').textContent = items.requirementId;
 
       if(items.type == 'item') {
         document.getElementById('work-item').style.display = "block";

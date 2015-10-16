@@ -10,6 +10,7 @@ var Config = {
     'Entwicklung',
     'Fehlerbehebung',
     'Projektmanagement',
-    'Sonstiges'
+    'Sonstiges',
+    'Testing / QA'
   ]
 };

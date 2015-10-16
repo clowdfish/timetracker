@@ -144,6 +144,7 @@ SharePointConnector.prototype = {
    *        record.summary,
    *        record.category,
    *        record.requirementId
+   *        record.projectId
    * @param callback
    */
   addTimeRecord: function(record, callback) {
@@ -213,10 +214,9 @@ SharePointConnector.prototype = {
           'Description1': record.description,
           'Summary': record.summary,
           'Category1': record.category,
-          'RequirementId': parseInt(record.requirementId)
+          'RequirementId': parseInt(record.requirementId),
+          'ProjektId': parseInt(record.projectId)
         }, null, 0);
-
-        console.log(data);
 
         $.ajax({
           url: fullUrl,
